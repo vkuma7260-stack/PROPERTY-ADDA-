@@ -151,6 +151,7 @@
   /* MODAL */
   .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 1000; align-items: center; justify-content: center; }
   .modal-overlay.open { display: flex; }
+  #uploadPwdModal { z-index: 1100; }
   .modal { background: white; border-radius: 12px; padding: 30px; width: 90%; max-width: 480px; position: relative; max-height: 90vh; overflow-y: auto; }
   .modal h2 { font-size: 22px; font-weight: 800; color: var(--navy); margin-bottom: 20px; }
   .modal-close { position: absolute; top: 15px; right: 18px; font-size: 22px; cursor: pointer; color: #888; background: none; border: none; }
@@ -229,15 +230,6 @@
     </select>
     <select id="searchLocation">
       <option value="">Select Location</option>
-      <option>Channi Himmat</option>
-      <option>Gandhi Nagar</option>
-      <option>Trikuta Nagar</option>
-      <option>Bakshi Nagar</option>
-      <option>Patel Nagar</option>
-      <option>Roop Nagar</option>
-      <option>Nanak Nagar</option>
-      <option>Barnai</option>
-      <option>Sidhra</option>
     </select>
     <select id="searchBudget">
       <option value="">Budget</option>
@@ -272,17 +264,8 @@
     <button class="filter-btn" onclick="filterProps('flat',this)">🏢 Flats</button>
     <button class="filter-btn" onclick="filterProps('plot',this)">🌱 Plots</button>
     <button class="filter-btn" onclick="filterProps('rental',this)">🔑 Rental</button>
-    <select class="filter-select" onchange="filterByLocation(this.value)" style="margin-left:20px;">
+    <select class="filter-select" onchange="filterByLocation(this.value)" style="margin-left:20px;" id="filterLocSelect">
       <option value="">All Localities</option>
-      <option>Channi Himmat</option>
-      <option>Gandhi Nagar</option>
-      <option>Trikuta Nagar</option>
-      <option>Bakshi Nagar</option>
-      <option>Patel Nagar</option>
-      <option>Roop Nagar</option>
-      <option>Nanak Nagar</option>
-      <option>Barnai</option>
-      <option>Sidhra</option>
     </select>
     <span id="resultCount" style="margin-left:auto;font-size:13px;color:#888;"></span>
   </div>
@@ -314,17 +297,8 @@
     </div>
     <div class="sidebar-section">
       <h4>Locality</h4>
-      <select class="sidebar-select" onchange="filterByLocation(this.value)">
+      <select class="sidebar-select" onchange="filterByLocation(this.value)" id="sidebarLocSelect">
         <option value="">All Areas</option>
-        <option>Channi Himmat</option>
-        <option>Gandhi Nagar</option>
-        <option>Trikuta Nagar</option>
-        <option>Bakshi Nagar</option>
-        <option>Patel Nagar</option>
-        <option>Roop Nagar</option>
-        <option>Nanak Nagar</option>
-        <option>Barnai</option>
-        <option>Sidhra</option>
       </select>
     </div>
     <div class="contact-card">
@@ -555,35 +529,6 @@
       <label>Location *</label>
       <select id="newLocation">
         <option value="">-- Select Area --</option>
-        <optgroup label="Popular Areas">
-          <option>Channi Himmat</option>
-          <option>Gandhi Nagar</option>
-          <option>Trikuta Nagar</option>
-          <option>Bakshi Nagar</option>
-          <option>Patel Nagar</option>
-          <option>Roop Nagar</option>
-          <option>Nanak Nagar</option>
-          <option>Barnai</option>
-          <option>Sidhra</option>
-        </optgroup>
-        <optgroup label="More Areas">
-          <option>Talab Tillo</option>
-          <option>Rehari Colony</option>
-          <option>Shastri Nagar</option>
-          <option>Sarwal</option>
-          <option>Amphalla</option>
-          <option>Janipur</option>
-          <option>Channi Rama</option>
-          <option>Rajinder Nagar</option>
-          <option>New Plot</option>
-          <option>Sainik Colony</option>
-          <option>Karan Nagar</option>
-          <option>Shakti Nagar</option>
-          <option>Shiv Nagar</option>
-          <option>Transport Nagar</option>
-          <option>Muthi</option>
-        </optgroup>
-        <option value="__custom__">✏️ Type custom location...</option>
       </select>
       <input type="text" id="newLocationCustom" placeholder="Type your area / locality name" style="display:none;margin-top:8px;width:100%;padding:10px 12px;border:1.5px solid var(--gold);border-radius:8px;font-size:14px;outline:none;">
     </div>
@@ -619,6 +564,7 @@
     <div class="admin-tabs">
       <div class="admin-tab active" onclick="switchTab('props',this)">🏠 Properties</div>
       <div class="admin-tab" onclick="switchTab('inquiries',this)">📬 Inquiries</div>
+      <div class="admin-tab" onclick="switchTab('locations',this)">📍 Manage Locations</div>
     </div>
     <div id="tab-props" class="admin-content active">
       <button class="add-btn" onclick="openModal('addPropModal')">➕ Add New Property</button>
@@ -630,24 +576,61 @@
     <div id="tab-inquiries" class="admin-content">
       <p style="color:#888;font-size:14px;padding:20px 0;">No inquiries yet. They'll appear here when visitors submit the contact form.</p>
     </div>
+    <div id="tab-locations" class="admin-content">
+      <div style="max-width:500px;">
+        <h3 style="color:var(--navy);margin-bottom:6px;">📍 Manage Location / Area Names</h3>
+        <p style="font-size:13px;color:#888;margin-bottom:20px;">Add new places here — they will automatically appear in the location dropdowns on the website and in the Add Property form.</p>
+        <div style="display:flex;gap:10px;margin-bottom:20px;">
+          <input type="text" id="newLocInput" placeholder="e.g. New Colony, Bypass Road..." style="flex:1;padding:10px 12px;border:1.5px solid #ddd;border-radius:8px;font-size:14px;outline:none;" onkeydown="if(event.key==='Enter')addLocation()">
+          <button onclick="addLocation()" style="background:var(--gold);color:white;border:none;padding:10px 20px;border-radius:8px;font-weight:700;cursor:pointer;white-space:nowrap;">+ Add Place</button>
+        </div>
+        <div id="locSuccessMsg" style="display:none;background:#e8f5e9;border:1px solid #81c784;color:#2e7d32;padding:10px 14px;border-radius:8px;margin-bottom:14px;font-size:13px;">✅ Location added!</div>
+        <div id="locList" style="border:1px solid var(--border);border-radius:10px;overflow:hidden;"></div>
+      </div>
+    </div>
   </div>
 </div>
 
-<script>
-// ── DATA ──
-let properties = [
-  { id:1, title:"3 BHK Luxury Flat", type:"flat", price:"₹55 Lakh", location:"Trikuta Nagar", beds:3, baths:2, area:"1450", status:"Ready to Move", img:"" },
-  { id:2, title:"2 BHK Flat Near Market", type:"flat", price:"₹32 Lakh", location:"Gandhi Nagar", beds:2, baths:1, area:"980", status:"New Launch", img:"" },
-  { id:3, title:"Residential Plot 200 Sq Yd", type:"plot", price:"₹18 Lakh", location:"Barnai", beds:0, baths:0, area:"1800", status:"Ready to Move", img:"" },
-  { id:4, title:"2 BHK Furnished Rental", type:"rental", price:"₹12K/month", location:"Channi Himmat", beds:2, baths:1, area:"850", status:"Ready to Move", img:"" },
-  { id:5, title:"4 BHK Independent Floor", type:"flat", price:"₹78 Lakh", location:"Bakshi Nagar", beds:4, baths:3, area:"2100", status:"Under Construction", img:"" },
-  { id:6, title:"Commercial Plot 500 Sq Yd", type:"plot", price:"₹65 Lakh", location:"Sidhra", beds:0, baths:0, area:"4500", status:"New Launch", img:"" },
-  { id:7, title:"1 BHK Studio Apartment", type:"rental", price:"₹7K/month", location:"Nanak Nagar", beds:1, baths:1, area:"480", status:"Ready to Move", img:"" },
-  { id:8, title:"3 BHK Premium Flat", type:"flat", price:"₹62 Lakh", location:"Roop Nagar", beds:3, baths:2, area:"1600", status:"New Launch", img:"" },
+<script type="module">
+// ── FIREBASE SETUP ──
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import { getFirestore, collection, addDoc, getDocs, deleteDoc, doc, onSnapshot, orderBy, query } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyAc_sVCh5PDb5vWWo3-54AWjf7hKCVT-kM",
+  authDomain: "property-adda-80d22.firebaseapp.com",
+  projectId: "property-adda-80d22",
+  storageBucket: "property-adda-80d22.firebasestorage.app",
+  messagingSenderId: "498898942500",
+  appId: "1:498898942500:web:9d01c54cd716eaf03f76b1",
+  measurementId: "G-85TJZSL6DB"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+// ── LOCATIONS DATA ──
+let locations = [
+  'Channi Himmat','Gandhi Nagar','Trikuta Nagar','Bakshi Nagar','Patel Nagar',
+  'Roop Nagar','Nanak Nagar','Barnai','Sidhra','Talab Tillo','Rehari Colony',
+  'Shastri Nagar','Sarwal','Amphalla','Janipur','Channi Rama','Rajinder Nagar',
+  'New Plot','Sainik Colony','Karan Nagar','Shakti Nagar','Shiv Nagar',
+  'Transport Nagar','Muthi'
 ];
-let nextId = 9;
+
+// ── PROPERTIES (loaded from Firestore) ──
+let properties = [];
 let currentFilter = 'all';
 let locationFilter = '';
+
+// ── SHOW LOADING ──
+function showLoading() {
+  document.getElementById('listingsGrid').innerHTML = `
+    <div style="grid-column:1/-1;text-align:center;padding:60px;color:#888;">
+      <div style="font-size:48px;margin-bottom:12px;">⏳</div>
+      <p>Loading properties...</p>
+    </div>`;
+}
 
 // ── RENDER ──
 function getBadgeClass(type) {
@@ -661,8 +644,9 @@ function getStatusClass(s) {
 function renderPlaceholder(type) {
   const icons = {flat:'🏢',plot:'🌱',rental:'🔑'};
   const labels = {flat:'Flat',plot:'Plot',rental:'Rental'};
-  return `<div class="prop-img-placeholder"><div class="house-icon">${icons[type]}</div><span style="font-size:13px;color:#999">${labels[type]}</span></div>`;
+  return `<div class="prop-img-placeholder"><div class="house-icon">${icons[type]||'🏠'}</div><span style="font-size:13px;color:#999">${labels[type]||type}</span></div>`;
 }
+
 function renderCards() {
   const grid = document.getElementById('listingsGrid');
   let filtered = properties.filter(p => {
@@ -678,7 +662,7 @@ function renderCards() {
     return;
   }
   grid.innerHTML = filtered.map(p=>`
-    <div class="prop-card" data-type="${p.type}" data-id="${p.id}">
+    <div class="prop-card" data-type="${p.type}" data-id="${p.firestoreId}">
       <div class="prop-img">
         ${p.img ? `<img src="${p.img}" alt="${p.title}" onerror="this.parentElement.innerHTML='${renderPlaceholder(p.type).replace(/'/g,"\\'")}'">`  : renderPlaceholder(p.type)}
         <span class="type-badge ${getBadgeClass(p.type)}">${p.type.charAt(0).toUpperCase()+p.type.slice(1)}</span>
@@ -694,7 +678,7 @@ function renderCards() {
           ${p.area?`<div class="spec-item">📐 ${p.area} sq ft</div>`:''}
         </div>
         <div class="prop-actions">
-          <button class="btn-call" onclick="openCallModal(${p.id})">📞 Call Agent</button>
+          <button class="btn-call" onclick="openCallModal('${p.firestoreId}')">📞 Call Agent</button>
           <button class="btn-details">View Details</button>
         </div>
       </div>
@@ -724,31 +708,30 @@ function openModal(id) { document.getElementById(id).classList.add('open'); }
 function closeModal(id) { document.getElementById(id).classList.remove('open'); }
 function openInquiryModal() { openModal('inquiryModal'); }
 window.addEventListener('click', e => {
-  if(e.target.classList.contains('modal-overlay')) e.target.classList.remove('open');
+  if(e.target.classList.contains('modal-overlay')) {
+    if(e.target.id === 'uploadPwdModal') {
+      e.target.classList.remove('open');
+    } else if(!document.getElementById('uploadPwdModal').classList.contains('open')) {
+      e.target.classList.remove('open');
+    }
+  }
 });
+
 function openCallModal(propId) {
-  // Reset
   document.getElementById('callName').value = '';
   document.getElementById('callPhone').value = '';
   document.getElementById('callDate').value = '';
   document.getElementById('callSuccess').style.display = 'none';
-  // Set min date to today
   const today = new Date().toISOString().split('T')[0];
   document.getElementById('callDate').min = today;
-
-  // Auto-fill property info
-  const prop = properties.find(p => p.id === propId);
+  const prop = properties.find(p => p.firestoreId === propId);
   if(prop) {
     document.getElementById('callPropTitle').textContent = prop.title;
     document.getElementById('callPropLocation').textContent = '📍 ' + prop.location + ', Jammu';
     document.getElementById('callPropPrice').textContent = prop.price;
     const imgEl = document.getElementById('callPropImg');
-    if(prop.img) {
-      imgEl.src = prop.img;
-      imgEl.style.display = 'block';
-    } else {
-      imgEl.style.display = 'none';
-    }
+    if(prop.img) { imgEl.src = prop.img; imgEl.style.display = 'block'; }
+    else { imgEl.style.display = 'none'; }
     document.getElementById('callPropPreview').style.display = 'flex';
   } else {
     document.getElementById('callPropPreview').style.display = 'none';
@@ -764,12 +747,9 @@ function submitCallBooking() {
   if(!name) { alert('Please enter your name'); return; }
   if(!phone || phone.length < 10) { alert('Please enter a valid 10-digit mobile number'); return; }
   if(!date) { alert('Please select a preferred date'); return; }
-
-  const prop = properties.find(p => p.id === window._callPropId);
+  const prop = properties.find(p => p.firestoreId === window._callPropId);
   const propInfo = prop ? `🏠 Property: ${prop.title} (${prop.location})\n💰 Price: ${prop.price}` : '';
-
   const msg = encodeURIComponent(`Hello Sunny,\n\nNew Call Booking Request:\n👤 Name: ${name}\n📞 Mobile: ${phone}\n📅 Date: ${date}\n${propInfo}\n\nPlease call to confirm.`);
-
   document.getElementById('callSuccess').style.display = 'block';
   setTimeout(() => {
     closeModal('inquiryModal');
@@ -788,6 +768,7 @@ function checkAdmin() {
     document.querySelector('nav').style.display='none';
     document.querySelector('.topbar').style.display='none';
     renderAdminTable();
+    renderLocList();
     window.scrollTo(0,0);
   } else {
     document.getElementById('pwdError').style.display='block';
@@ -809,21 +790,28 @@ function renderAdminTable() {
   tbody.innerHTML = properties.map((p,i)=>`
     <tr>
       <td>${i+1}</td>
+      <td>${p.img ? `<img src="${p.img}" style="width:40px;height:40px;object-fit:cover;border-radius:4px;">` : '—'}</td>
       <td>${p.title}</td>
       <td><span class="type-badge ${getBadgeClass(p.type)}" style="position:static;font-size:11px;">${p.type}</span></td>
       <td>${p.price}</td>
       <td>${p.location}</td>
-      <td>${p.beds||'—'}</td>
-      <td>${p.area} sqft</td>
       <td>${p.status}</td>
-      <td><button class="del-btn" onclick="deleteProp(${p.id})">Delete</button></td>
+      <td><button class="del-btn" onclick="deleteProp('${p.firestoreId}')">Delete</button></td>
     </tr>
   `).join('');
 }
-function deleteProp(id) {
-  if(confirm('Delete this property?')){ properties=properties.filter(p=>p.id!==id); renderAdminTable(); renderCards(); }
+
+async function deleteProp(firestoreId) {
+  if(!confirm('Delete this property?')) return;
+  try {
+    await deleteDoc(doc(db, 'properties', firestoreId));
+    // onSnapshot will auto-update the list
+  } catch(e) {
+    alert('Error deleting: ' + e.message);
+  }
 }
-function addProperty() {
+
+async function addProperty() {
   const title = document.getElementById('newTitle').value.trim();
   const price = document.getElementById('newPrice').value.trim();
   const locSelect = document.getElementById('newLocation').value;
@@ -834,43 +822,55 @@ function addProperty() {
   if(!price) { alert('Please enter a price'); return; }
   if(!location) { alert('Please select or type a location'); return; }
 
-  const p = {
-    id: nextId++,
-    title, price, location,
-    type: document.getElementById('newType').value,
-    beds: parseInt(document.getElementById('newBeds').value) || 0,
-    baths: parseInt(document.getElementById('newBaths').value) || 1,
-    area: document.getElementById('newArea').value || 'N/A',
-    status: document.getElementById('newStatus').value,
-    desc: document.getElementById('newDesc').value.trim(),
-    img: window._propImgData || ''
-  };
-  properties.unshift(p);
-  renderAdminTable();
-  renderCards();
-  document.getElementById('addPropSuccess').style.display = 'block';
-  setTimeout(() => { document.getElementById('addPropSuccess').style.display = 'none'; closeModal('addPropModal'); }, 1500);
-  // Reset all fields
-  ['newTitle','newPrice','newBeds','newBaths','newArea','newDesc'].forEach(id => document.getElementById(id).value = '');
-  document.getElementById('newLocation').value = '';
-  document.getElementById('newLocationCustom').style.display = 'none';
-  document.getElementById('newLocationCustom').value = '';
-  window._propImgData = '';
-  document.getElementById('propImgPreview').style.display = 'none';
-  document.getElementById('propImgLabel').textContent = '📷 Click or drag to upload property photo';
-  document.getElementById('propImgDrop').style.borderColor = '#ddd';
-  document.getElementById('propImgFile').value = '';
+  const submitBtn = document.querySelector('#addPropModal .submit-btn');
+  submitBtn.textContent = '⏳ Saving...';
+  submitBtn.disabled = true;
+
+  try {
+    const p = {
+      title, price, location,
+      type: document.getElementById('newType').value,
+      beds: parseInt(document.getElementById('newBeds').value) || 0,
+      baths: parseInt(document.getElementById('newBaths').value) || 1,
+      area: document.getElementById('newArea').value || 'N/A',
+      status: document.getElementById('newStatus').value,
+      desc: document.getElementById('newDesc').value.trim(),
+      img: window._propImgData || '',
+      createdAt: Date.now()
+    };
+    await addDoc(collection(db, 'properties'), p);
+    document.getElementById('addPropSuccess').style.display = 'block';
+    setTimeout(() => {
+      document.getElementById('addPropSuccess').style.display = 'none';
+      closeModal('addPropModal');
+    }, 1500);
+    // Reset fields
+    ['newTitle','newPrice','newBeds','newBaths','newArea','newDesc'].forEach(id => document.getElementById(id).value = '');
+    document.getElementById('newLocation').value = '';
+    document.getElementById('newLocationCustom').style.display = 'none';
+    document.getElementById('newLocationCustom').value = '';
+    window._propImgData = '';
+    document.getElementById('propImgPreview').style.display = 'none';
+    document.getElementById('propImgLabel').textContent = '📷 Click or drag to upload property photo';
+    document.getElementById('propImgDrop').style.borderColor = '#ddd';
+    document.getElementById('propImgFile').value = '';
+  } catch(e) {
+    alert('Error saving property: ' + e.message);
+  } finally {
+    submitBtn.textContent = '✅ Add Property';
+    submitBtn.disabled = false;
+  }
 }
 
 function askUploadPwd() {
   document.getElementById('uploadPwdInput').value = '';
   document.getElementById('uploadPwdError').style.display = 'none';
-  openModal('uploadPwdModal');
+  document.getElementById('uploadPwdModal').classList.add('open');
 }
 function checkUploadPwd() {
   const pwd = document.getElementById('uploadPwdInput').value;
   if(pwd === 'thirdeyetechnologies') {
-    closeModal('uploadPwdModal');
+    document.getElementById('uploadPwdModal').classList.remove('open');
     document.getElementById('propImgFile').click();
   } else {
     document.getElementById('uploadPwdError').style.display = 'block';
@@ -880,15 +880,29 @@ function checkUploadPwd() {
 
 function previewPropImg(input) {
   if(input.files && input.files[0]) {
+    const file = input.files[0];
+    // Compress image before storing
     const reader = new FileReader();
     reader.onload = e => {
-      window._propImgData = e.target.result;
-      document.getElementById('propImgThumb').src = e.target.result;
-      document.getElementById('propImgPreview').style.display = 'block';
-      document.getElementById('propImgLabel').textContent = '✅ ' + input.files[0].name;
-      document.getElementById('propImgDrop').style.borderColor = 'var(--gold)';
+      const img = new Image();
+      img.onload = () => {
+        const canvas = document.createElement('canvas');
+        const MAX = 800;
+        let w = img.width, h = img.height;
+        if(w > MAX) { h = Math.round(h * MAX / w); w = MAX; }
+        if(h > MAX) { w = Math.round(w * MAX / h); h = MAX; }
+        canvas.width = w; canvas.height = h;
+        canvas.getContext('2d').drawImage(img, 0, 0, w, h);
+        const compressed = canvas.toDataURL('image/jpeg', 0.7);
+        window._propImgData = compressed;
+        document.getElementById('propImgThumb').src = compressed;
+        document.getElementById('propImgPreview').style.display = 'block';
+        document.getElementById('propImgLabel').textContent = '✅ ' + file.name;
+        document.getElementById('propImgDrop').style.borderColor = 'var(--gold)';
+      };
+      img.src = e.target.result;
     };
-    reader.readAsDataURL(input.files[0]);
+    reader.readAsDataURL(file);
   }
 }
 function handlePropImgDrop(e) {
@@ -905,19 +919,94 @@ function handlePropImgDrop(e) {
 }
 window._propImgData = '';
 
+// ── LOCATION MANAGEMENT ──
+function populateLocationDropdowns() {
+  const sorted = [...locations].sort();
+  const opts = sorted.map(l => `<option value="${l}">${l}</option>`).join('');
+  document.getElementById('searchLocation').innerHTML = '<option value="">Select Location</option>' + opts;
+  document.getElementById('filterLocSelect').innerHTML = '<option value="">All Localities</option>' + opts;
+  document.getElementById('sidebarLocSelect').innerHTML = '<option value="">All Areas</option>' + opts;
+  document.getElementById('newLocation').innerHTML =
+    '<option value="">-- Select Area --</option>' + opts +
+    '<option value="__custom__">✏️ Type custom location...</option>';
+}
+
+function addLocation() {
+  const input = document.getElementById('newLocInput');
+  const name = input.value.trim();
+  if(!name) { alert('Please enter a location name'); return; }
+  if(locations.some(l => l.toLowerCase() === name.toLowerCase())) { alert('This location already exists!'); return; }
+  locations.push(name);
+  populateLocationDropdowns();
+  renderLocList();
+  input.value = '';
+  const msg = document.getElementById('locSuccessMsg');
+  msg.style.display = 'block';
+  setTimeout(() => msg.style.display = 'none', 2000);
+}
+
+function deleteLocation(idx) {
+  const loc = locations[idx];
+  if(!confirm(`Delete "${loc}"?`)) return;
+  locations.splice(idx, 1);
+  populateLocationDropdowns();
+  renderLocList();
+}
+
+function renderLocList() {
+  const el = document.getElementById('locList');
+  if(!el) return;
+  const sorted = [...locations].sort();
+  el.innerHTML = sorted.map((l, i) => `
+    <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 16px;border-bottom:1px solid var(--border);font-size:14px;background:${i%2===0?'#fff':'#fafaf5'};">
+      <span>📍 ${l}</span>
+      <button onclick="deleteLocation(${locations.indexOf(l)})" style="background:#dc3545;color:white;border:none;padding:3px 10px;border-radius:5px;cursor:pointer;font-size:12px;">Remove</button>
+    </div>
+  `).join('');
+}
+
 // Custom location toggle
 document.getElementById('newLocation').addEventListener('change', function() {
   const custom = document.getElementById('newLocationCustom');
-  if(this.value === '__custom__') {
-    custom.style.display = 'block';
-    custom.focus();
-  } else {
-    custom.style.display = 'none';
-  }
+  if(this.value === '__custom__') { custom.style.display = 'block'; custom.focus(); }
+  else { custom.style.display = 'none'; }
 });
 
-// ── INIT ──
-renderCards();
+// ── EXPOSE FUNCTIONS TO GLOBAL SCOPE (needed for onclick in HTML) ──
+window.filterProps = filterProps;
+window.filterByLocation = filterByLocation;
+window.applyFilters = applyFilters;
+window.doSearch = doSearch;
+window.openModal = openModal;
+window.closeModal = closeModal;
+window.openInquiryModal = openInquiryModal;
+window.openCallModal = openCallModal;
+window.submitCallBooking = submitCallBooking;
+window.showAdmin = showAdmin;
+window.checkAdmin = checkAdmin;
+window.logoutAdmin = logoutAdmin;
+window.switchTab = switchTab;
+window.deleteProp = deleteProp;
+window.addProperty = addProperty;
+window.askUploadPwd = askUploadPwd;
+window.checkUploadPwd = checkUploadPwd;
+window.previewPropImg = previewPropImg;
+window.handlePropImgDrop = handlePropImgDrop;
+window.addLocation = addLocation;
+window.deleteLocation = deleteLocation;
+
+// ── INIT — Listen to Firestore in real-time ──
+showLoading();
+populateLocationDropdowns();
+
+const q = query(collection(db, 'properties'), orderBy('createdAt', 'desc'));
+onSnapshot(q, (snapshot) => {
+  properties = snapshot.docs.map(d => ({ firestoreId: d.id, ...d.data() }));
+  renderCards();
+  renderAdminTable();
+  document.getElementById('totalProps').textContent = properties.length;
+});
+
 </script>
 </body>
 </html>
