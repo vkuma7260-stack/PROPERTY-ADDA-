@@ -18,11 +18,9 @@
   }
   body { font-family: 'Segoe UI', sans-serif; background: #fff; color: #222; }
 
-  /* TOP BAR */
   .topbar { background: var(--navy); color: #ccc; font-size: 12px; padding: 6px 30px; display: flex; justify-content: space-between; align-items: center; position: relative; z-index: 600; }
   .topbar a { color: var(--gold); text-decoration: none; margin-left: 12px; }
 
-  /* NAVBAR */
   nav { background: #fff; box-shadow: 0 2px 10px rgba(0,0,0,0.1); padding: 0 30px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 500; flex-wrap: wrap; }
   .logo { display: flex; align-items: center; gap: 10px; padding: 12px 0; }
   .logo-icon { width: 44px; height: 44px; background: var(--gold); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-weight: 900; color: white; font-size: 18px; }
@@ -34,27 +32,23 @@
   .nav-post-btn { background: var(--gold); color: white; padding: 9px 18px; border-radius: 6px; font-weight: 600; font-size: 13px; text-decoration: none; margin-left: 10px; }
   .nav-post-btn:hover { background: var(--gold-dark); }
 
-  /* HERO */
   .hero { background: linear-gradient(135deg, var(--navy) 0%, #2d3a5c 60%, #1a2340 100%); padding: 60px 30px; text-align: center; color: white; position: relative; overflow: hidden; }
   .hero::before { content: ''; position: absolute; inset: 0; background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23c9a84c' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E"); }
   .hero h2 { font-size: 38px; font-weight: 800; margin-bottom: 10px; position: relative; }
   .hero h2 span { color: var(--gold); }
   .hero p { font-size: 16px; color: rgba(255,255,255,0.75); margin-bottom: 35px; position: relative; }
 
-  /* SEARCH BOX */
   .search-box { background: white; border-radius: 12px; padding: 20px; max-width: 860px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr 1fr 1fr auto; gap: 12px; position: relative; box-shadow: 0 8px 30px rgba(0,0,0,0.3); }
   .search-box select, .search-box input { padding: 12px 14px; border: 1.5px solid #e0e0e0; border-radius: 8px; font-size: 14px; color: #333; outline: none; width: 100%; }
   .search-box select:focus, .search-box input:focus { border-color: var(--gold); }
   .search-btn { background: var(--gold); color: white; border: none; padding: 12px 24px; border-radius: 8px; font-size: 15px; font-weight: 700; cursor: pointer; white-space: nowrap; }
   .search-btn:hover { background: var(--gold-dark); }
 
-  /* STATS BAR */
   .stats-bar { background: var(--gold); display: flex; justify-content: center; gap: 60px; padding: 18px; }
   .stat-item { text-align: center; color: white; }
   .stat-item strong { display: block; font-size: 22px; font-weight: 800; }
   .stat-item span { font-size: 12px; opacity: 0.85; }
 
-  /* FILTER TABS */
   .filter-section { background: var(--light); padding: 20px 30px; border-bottom: 1px solid var(--border); }
   .filter-row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
   .filter-label { font-weight: 600; font-size: 13px; color: var(--navy); margin-right: 5px; }
@@ -62,10 +56,8 @@
   .filter-btn:hover, .filter-btn.active { background: var(--gold); color: white; border-color: var(--gold); }
   .filter-select { padding: 7px 14px; border: 1.5px solid var(--border); border-radius: 20px; font-size: 13px; outline: none; cursor: pointer; }
 
-  /* MAIN LAYOUT */
   .main-layout { display: grid; grid-template-columns: 280px 1fr; max-width: 1300px; margin: 0 auto; padding: 30px; gap: 25px; overflow: hidden; }
 
-  /* SIDEBAR */
   .sidebar { background: white; border: 1px solid var(--border); border-radius: 12px; padding: 0; overflow: hidden; align-self: start; position: sticky; top: 70px; }
   .sidebar-header { background: var(--navy); color: white; padding: 16px 20px; font-weight: 700; font-size: 15px; }
   .sidebar-section { padding: 18px 20px; border-bottom: 1px solid var(--border); }
@@ -75,20 +67,17 @@
   .sidebar-select { width: 100%; padding: 9px 12px; border: 1.5px solid var(--border); border-radius: 8px; font-size: 13px; outline: none; }
   .sidebar-select:focus { border-color: var(--gold); }
 
-  /* CONTACT CARD IN SIDEBAR */
   .contact-card { background: var(--navy); color: white; padding: 20px; }
   .contact-card h4 { color: var(--gold); font-size: 14px; margin-bottom: 10px; }
   .contact-card p { font-size: 13px; line-height: 1.6; opacity: 0.85; }
   .contact-card .phone { font-size: 18px; font-weight: 700; color: var(--gold); margin: 10px 0 5px; }
   .call-btn { display: block; background: var(--gold); color: white; text-align: center; padding: 10px; border-radius: 8px; text-decoration: none; font-weight: 700; margin-top: 12px; font-size: 13px; }
 
-  /* LISTINGS */
   .listings-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
   .listings-header h3 { font-size: 20px; font-weight: 700; color: var(--navy); }
   .listings-header span { color: var(--gray); font-size: 13px; }
   .listings-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; overflow: hidden; }
 
-  /* PROPERTY CARD */
   .prop-card { background: white; border: 1px solid var(--border); border-radius: 12px; overflow: hidden; transition: box-shadow 0.2s; }
   .prop-card:hover { box-shadow: 0 12px 30px rgba(0,0,0,0.1); }
   .prop-img { position: relative; height: 200px; overflow: hidden; background: #e8e0d0; cursor: pointer; }
@@ -96,15 +85,10 @@
   .prop-img:hover img { transform: scale(1.04); }
   .prop-img-placeholder { width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; background: linear-gradient(135deg, #e8e0d0, #d4c8a8); color: #888; cursor: pointer; }
   .prop-img-placeholder .house-icon { font-size: 48px; margin-bottom: 8px; }
-
-  /* IMAGE COUNT BADGE */
   .img-count-badge { position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); color: white; font-size: 11px; font-weight: 700; padding: 3px 9px; border-radius: 12px; display: flex; align-items: center; gap: 4px; backdrop-filter: blur(4px); }
-
-  /* VIEW DETAILS OVERLAY */
   .prop-img-overlay { position: absolute; inset: 0; background: rgba(26,35,64,0.55); display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.25s; }
   .prop-img:hover .prop-img-overlay { opacity: 1; }
   .prop-img-overlay span { color: white; font-weight: 700; font-size: 14px; background: var(--gold); padding: 8px 18px; border-radius: 20px; letter-spacing: 0.5px; }
-
   .type-badge { position: absolute; top: 12px; left: 12px; padding: 4px 12px; border-radius: 20px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
   .badge-flat { background: #1a6db5; color: white; }
   .badge-plot { background: #2e7d32; color: white; }
@@ -127,14 +111,12 @@
   .btn-details { flex: 1; background: white; color: var(--navy); border: 2px solid var(--navy); padding: 9px; border-radius: 8px; font-size: 13px; font-weight: 600; cursor: pointer; }
   .btn-details:hover { background: var(--navy); color: white; }
 
-  /* ── PROPERTY DETAIL MODAL ── */
   .detail-modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.8); z-index: 2000; align-items: flex-start; justify-content: center; overflow-y: auto; padding: 20px; }
   .detail-modal-overlay.open { display: flex; }
   .detail-modal { background: white; border-radius: 16px; width: 100%; max-width: 900px; margin: auto; overflow: hidden; position: relative; }
   .detail-modal-close { position: absolute; top: 14px; right: 16px; font-size: 24px; cursor: pointer; color: white; background: rgba(0,0,0,0.4); border: none; width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; z-index: 10; font-weight: 700; line-height: 1; }
   .detail-modal-close:hover { background: rgba(0,0,0,0.7); }
 
-  /* IMAGE GALLERY */
   .gallery-main { position: relative; height: 380px; background: #1a2340; overflow: hidden; }
   .gallery-main img { width: 100%; height: 100%; object-fit: cover; display: none; }
   .gallery-main img.active { display: block; }
@@ -150,7 +132,6 @@
   .gallery-thumb.active { border-color: var(--gold); opacity: 1; }
   .gallery-thumb-placeholder { width: 70px; height: 54px; border-radius: 7px; background: #d4c8a8; display: flex; align-items: center; justify-content: center; font-size: 22px; flex-shrink: 0; border: 2.5px solid var(--gold); }
 
-  /* DETAIL BODY */
   .detail-body { padding: 24px 28px; }
   .detail-header { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 12px; margin-bottom: 16px; }
   .detail-price { font-size: 28px; font-weight: 900; color: var(--navy); }
@@ -158,24 +139,20 @@
   .detail-title { font-size: 20px; font-weight: 700; color: #222; margin-bottom: 6px; }
   .detail-location { font-size: 14px; color: var(--gray); margin-bottom: 18px; }
   .detail-location::before { content: '📍 '; }
-
   .detail-specs { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 12px; margin-bottom: 20px; }
   .detail-spec { background: var(--light); border: 1px solid var(--border); border-radius: 10px; padding: 12px 14px; text-align: center; }
   .detail-spec .spec-icon { font-size: 22px; margin-bottom: 4px; }
   .detail-spec .spec-val { font-size: 15px; font-weight: 700; color: var(--navy); }
   .detail-spec .spec-label { font-size: 11px; color: var(--gray); margin-top: 2px; }
-
   .detail-desc-section { margin-bottom: 20px; }
   .detail-desc-section h4 { font-size: 14px; font-weight: 700; color: var(--navy); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.5px; border-bottom: 2px solid var(--gold); padding-bottom: 6px; display: inline-block; }
   .detail-desc-section p { font-size: 14px; color: #444; line-height: 1.7; }
-
   .detail-actions { display: flex; gap: 12px; flex-wrap: wrap; padding-top: 16px; border-top: 1px solid var(--border); }
   .detail-call-btn { flex: 1; min-width: 160px; background: var(--gold); color: white; border: none; padding: 13px 20px; border-radius: 10px; font-size: 15px; font-weight: 700; cursor: pointer; }
   .detail-call-btn:hover { background: var(--gold-dark); }
   .detail-wa-btn { flex: 1; min-width: 160px; background: #25D366; color: white; border: none; padding: 13px 20px; border-radius: 10px; font-size: 15px; font-weight: 700; cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; justify-content: center; gap: 6px; }
   .detail-wa-btn:hover { background: #1da851; }
 
-  /* SERVICES */
   .services-section { background: var(--light); padding: 50px 30px; text-align: center; }
   .services-section h2 { font-size: 28px; font-weight: 800; color: var(--navy); margin-bottom: 8px; }
   .services-section p { color: var(--gray); margin-bottom: 35px; }
@@ -186,14 +163,12 @@
   .service-card h4 { font-size: 15px; font-weight: 700; color: var(--navy); margin-bottom: 6px; }
   .service-card p { font-size: 12px; color: var(--gray); }
 
-  /* TRUST BADGES */
   .trust-section { background: var(--navy); padding: 40px 30px; display: flex; justify-content: center; gap: 50px; flex-wrap: wrap; }
   .trust-item { text-align: center; color: white; }
   .trust-item .icon { font-size: 32px; margin-bottom: 8px; }
   .trust-item h4 { font-size: 14px; font-weight: 700; color: var(--gold); }
   .trust-item p { font-size: 12px; opacity: 0.7; margin-top: 3px; }
 
-  /* FOOTER */
   footer { background: #0f1828; color: #aaa; padding: 40px 30px 20px; }
   .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 30px; margin-bottom: 30px; }
   .footer-brand h3 { color: var(--gold); font-size: 20px; margin-bottom: 8px; }
@@ -204,10 +179,8 @@
   .footer-bottom { border-top: 1px solid #1e2e42; padding-top: 18px; display: flex; justify-content: space-between; align-items: center; font-size: 12px; }
   .footer-bottom a { color: var(--gold); text-decoration: none; }
 
-  /* WHATSAPP */
   .whatsapp-btn { position: fixed; bottom: 25px; right: 25px; background: #25D366; color: white; width: 54px; height: 54px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 26px; text-decoration: none; box-shadow: 0 4px 15px rgba(37,211,102,0.4); z-index: 999; }
 
-  /* MODAL (generic) */
   .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 1000; align-items: center; justify-content: center; }
   .modal-overlay.open { display: flex; }
   #uploadPwdModal { z-index: 1100; }
@@ -222,14 +195,29 @@
   .submit-btn { width: 100%; background: var(--gold); color: white; border: none; padding: 12px; border-radius: 8px; font-size: 15px; font-weight: 700; cursor: pointer; margin-top: 5px; }
   .submit-btn:hover { background: var(--gold-dark); }
 
-  /* ── MULTI-IMAGE UPLOAD AREA ── */
-  .multi-img-drop { border: 2px dashed #ddd; border-radius: 10px; padding: 16px; background: #fafafa; cursor: pointer; transition: border-color 0.2s; }
-  .multi-img-drop:hover, .multi-img-drop.dragover { border-color: var(--gold); background: #fffdf5; }
-  .multi-img-drop-label { text-align: center; color: #aaa; font-size: 13px; pointer-events: none; }
-  .multi-img-strip { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
-  .multi-img-thumb-wrap { position: relative; width: 80px; height: 60px; }
-  .multi-img-thumb-wrap img { width: 80px; height: 60px; object-fit: cover; border-radius: 7px; border: 2px solid var(--border); }
-  .multi-img-thumb-wrap .remove-thumb { position: absolute; top: -6px; right: -6px; background: #dc3545; color: white; border: none; border-radius: 50%; width: 18px; height: 18px; font-size: 11px; cursor: pointer; display: flex; align-items: center; justify-content: center; font-weight: 700; }
+  /* ── FIXED MULTI-IMAGE UPLOAD AREA ── */
+  .multi-img-zone { border: 2px dashed #ddd; border-radius: 10px; background: #fafafa; transition: border-color 0.2s; overflow: hidden; }
+  .multi-img-zone.dragover { border-color: var(--gold); background: #fffdf5; }
+
+  /* Top bar with Add Photos button */
+  .multi-img-topbar { display: flex; align-items: center; justify-content: space-between; padding: 12px 14px; border-bottom: 1px dashed #e0e0e0; }
+  .multi-img-topbar-info { font-size: 12px; color: #888; }
+  .add-photos-btn { background: var(--gold); color: white; border: none; padding: 8px 16px; border-radius: 8px; font-size: 13px; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 6px; white-space: nowrap; }
+  .add-photos-btn:hover { background: var(--gold-dark); }
+  .add-photos-btn:disabled { background: #ccc; cursor: not-allowed; }
+
+  /* Drop hint shown when no images */
+  .multi-img-empty { text-align: center; padding: 28px 16px; color: #bbb; }
+  .multi-img-empty .drop-icon { font-size: 36px; margin-bottom: 8px; }
+  .multi-img-empty p { font-size: 13px; }
+
+  /* Thumbnails grid */
+  .multi-img-grid { display: flex; flex-wrap: wrap; gap: 10px; padding: 12px 14px; }
+  .multi-img-thumb-wrap { position: relative; width: 80px; height: 70px; flex-shrink: 0; }
+  .multi-img-thumb-wrap img { width: 80px; height: 70px; object-fit: cover; border-radius: 8px; border: 2px solid var(--border); display: block; }
+  .multi-img-thumb-wrap .remove-thumb { position: absolute; top: -7px; right: -7px; background: #dc3545; color: white; border: 2px solid white; border-radius: 50%; width: 20px; height: 20px; font-size: 11px; cursor: pointer; display: flex; align-items: center; justify-content: center; font-weight: 700; line-height: 1; }
+  .multi-img-thumb-wrap .cover-label { position: absolute; bottom: 0; left: 0; right: 0; background: var(--gold); color: white; font-size: 9px; font-weight: 700; text-align: center; padding: 2px 0; border-radius: 0 0 6px 6px; letter-spacing: 0.5px; }
+
   .img-order-hint { font-size: 11px; color: #aaa; margin-top: 6px; }
 
   /* ADMIN PANEL */
@@ -252,7 +240,6 @@
   .logout-btn { background: #dc3545; color: white; border: none; padding: 8px 18px; border-radius: 6px; cursor: pointer; font-weight: 600; }
   .success-msg { background: #e8f5e9; border: 1px solid #81c784; color: #2e7d32; padding: 12px 16px; border-radius: 8px; margin-bottom: 15px; display: none; }
 
-  /* MOBILE RESPONSIVE */
   @media (max-width: 768px) {
     .topbar { flex-direction: column; gap: 4px; padding: 8px 15px; text-align: center; font-size: 11px; }
     nav { padding: 0 15px; flex-wrap: wrap; }
@@ -294,6 +281,7 @@
     .detail-price { font-size: 22px; }
     .detail-title { font-size: 16px; }
     .detail-actions { flex-direction: column; }
+    .multi-img-topbar { flex-direction: column; gap: 10px; align-items: flex-start; }
   }
 
   @media (max-width: 480px) {
@@ -309,7 +297,6 @@
 </head>
 <body>
 
-<!-- TOP BAR -->
 <div class="topbar">
   <span>📍 Bachittar Complex, Channi Himmat, Jammu | 📞 7006628484</span>
   <span>
@@ -320,7 +307,6 @@
   </span>
 </div>
 
-<!-- NAVBAR -->
 <nav>
   <div class="logo">
     <div class="logo-icon">PA</div>
@@ -351,7 +337,6 @@
   <a href="#" onclick="openInquiryModal();toggleMobileMenu()">+ Post Property</a>
 </div>
 
-<!-- HERO -->
 <div class="hero">
   <h2>Find Your Dream Property in <span>Jammu</span></h2>
   <p>Flats • Plots • Rental — Trusted by Hundreds of Families</p>
@@ -382,7 +367,6 @@
   </div>
 </div>
 
-<!-- STATS BAR -->
 <div class="stats-bar">
   <div class="stat-item"><strong id="totalProps">0</strong><span>Total Listings</span></div>
   <div class="stat-item"><strong>500+</strong><span>Happy Clients</span></div>
@@ -390,7 +374,6 @@
   <div class="stat-item"><strong>10+</strong><span>Years Experience</span></div>
 </div>
 
-<!-- FILTER TABS -->
 <div class="filter-section">
   <div class="filter-row">
     <span class="filter-label">Filter by:</span>
@@ -405,7 +388,6 @@
   </div>
 </div>
 
-<!-- MAIN LAYOUT -->
 <div class="main-layout">
   <aside class="sidebar">
     <div class="sidebar-header">🔍 Refine Search</div>
@@ -452,7 +434,6 @@
   </div>
 </div>
 
-<!-- SERVICES -->
 <div class="services-section">
   <h2>Our Services</h2>
   <p>Everything you need to buy, sell, or rent property in Jammu</p>
@@ -465,7 +446,6 @@
   </div>
 </div>
 
-<!-- TRUST BADGES -->
 <div class="trust-section">
   <div class="trust-item"><div class="icon">✅</div><h4>Trusted Service</h4><p>Verified listings only</p></div>
   <div class="trust-item"><div class="icon">🤝</div><h4>Transparent Deals</h4><p>No hidden charges</p></div>
@@ -473,7 +453,6 @@
   <div class="trust-item"><div class="icon">😊</div><h4>Satisfied Clients</h4><p>500+ happy families</p></div>
 </div>
 
-<!-- FOOTER -->
 <footer>
   <div class="footer-grid">
     <div class="footer-brand">
@@ -502,20 +481,12 @@
 
 <a href="https://wa.me/917006628484" target="_blank" class="whatsapp-btn" title="Chat on WhatsApp">💬</a>
 
-<!-- ══════════════════════════════════════════
-     PROPERTY DETAIL MODAL (new)
-══════════════════════════════════════════ -->
+<!-- PROPERTY DETAIL MODAL -->
 <div class="detail-modal-overlay" id="detailModal">
   <div class="detail-modal">
     <button class="detail-modal-close" onclick="closeDetailModal()">✕</button>
-
-    <!-- GALLERY -->
-    <div class="gallery-main" id="galleryMain">
-      <!-- images injected by JS -->
-    </div>
+    <div class="gallery-main" id="galleryMain"></div>
     <div class="gallery-thumbnails" id="galleryThumbs"></div>
-
-    <!-- BODY -->
     <div class="detail-body">
       <div class="detail-header">
         <div>
@@ -525,14 +496,11 @@
         </div>
         <div class="detail-badges" id="detailBadges"></div>
       </div>
-
       <div class="detail-specs" id="detailSpecs"></div>
-
       <div class="detail-desc-section" id="detailDescSection">
         <h4>About this property</h4>
         <p id="detailDesc"></p>
       </div>
-
       <div class="detail-actions">
         <button class="detail-call-btn" id="detailCallBtn">📞 Call Agent</button>
         <a href="#" class="detail-wa-btn" id="detailWaBtn" target="_blank">💬 WhatsApp Agent</a>
@@ -638,23 +606,41 @@
       <textarea id="newDesc" rows="3" placeholder="Describe the property: floor, facing, nearby landmarks, amenities, parking, etc." style="width:100%;padding:10px 12px;border:1.5px solid #ddd;border-radius:8px;font-size:14px;outline:none;resize:vertical;"></textarea>
     </div>
 
-    <!-- ── MULTI-IMAGE UPLOAD ── -->
+    <!-- ── FIXED MULTI-IMAGE UPLOAD ── -->
     <div class="form-group">
-      <label>Property Photos <span style="color:#aaa;font-weight:400;">(up to 10 images)</span></label>
-      <div class="multi-img-drop" id="multiImgDrop"
-           onclick="askUploadPwd()"
-           ondragover="event.preventDefault();document.getElementById('multiImgDrop').classList.add('dragover')"
-           ondragleave="document.getElementById('multiImgDrop').classList.remove('dragover')"
+      <label>
+        Property Photos
+        <span style="color:#aaa;font-weight:400;">(select multiple — up to 10)</span>
+      </label>
+
+      <!-- Hidden file input — multiple enabled -->
+      <input type="file" id="propImgFiles" accept="image/*" multiple style="display:none" onchange="handleMultiImgSelect(this)">
+
+      <div class="multi-img-zone" id="multiImgZone"
+           ondragover="event.preventDefault();document.getElementById('multiImgZone').classList.add('dragover')"
+           ondragleave="document.getElementById('multiImgZone').classList.remove('dragover')"
            ondrop="handleMultiImgDrop(event)">
-        <div class="multi-img-drop-label">
-          <div style="font-size:28px;margin-bottom:6px;">📷</div>
-          <strong style="color:#555;font-size:13px;">Click or drag &amp; drop photos here</strong><br>
-          <span style="font-size:11px;">JPG, PNG • Max 10 photos • First photo = cover image</span>
+
+        <!-- Top bar with counter + Add button -->
+        <div class="multi-img-topbar">
+          <span class="multi-img-topbar-info" id="imgCountLabel">0 / 10 photos added</span>
+          <button type="button" class="add-photos-btn" id="addPhotosBtn" onclick="askUploadPwd()">
+            📷 Add Photos
+          </button>
         </div>
-        <div class="multi-img-strip" id="multiImgStrip"></div>
-        <input type="file" id="propImgFiles" accept="image/*" multiple style="display:none" onchange="handleMultiImgSelect(this)">
+
+        <!-- Empty state hint -->
+        <div class="multi-img-empty" id="multiImgEmpty">
+          <div class="drop-icon">🖼️</div>
+          <p>No photos yet — click <strong>Add Photos</strong> or drag &amp; drop images here</p>
+          <p style="font-size:11px;margin-top:4px;color:#ccc;">JPG, PNG • First photo = cover image on the listing</p>
+        </div>
+
+        <!-- Thumbnail grid (hidden until photos added) -->
+        <div class="multi-img-grid" id="multiImgGrid" style="display:none;"></div>
       </div>
-      <p class="img-order-hint">💡 First photo will appear as the cover on the listing card</p>
+
+      <p class="img-order-hint">💡 First photo = cover on listing card. You can remove any photo with ✕</p>
     </div>
 
     <button class="submit-btn" onclick="addProperty()">✅ Add Property</button>
@@ -701,11 +687,13 @@
   </div>
 </div>
 
+<script>
+  const _stub = (name) => function() { setTimeout(() => { if(typeof window[name] === "function") window[name].apply(null, arguments); }, 500); };
+  ["showAdmin","checkAdmin","logoutAdmin","filterProps","filterByLocation","applyFilters","doSearch","openModal","closeModal","openInquiryModal","openCallModal","submitCallBooking","switchTab","deleteProp","addProperty","askUploadPwd","checkUploadPwd","handleMultiImgSelect","handleMultiImgDrop","removeThumb","addLocation","deleteLocation","openDetailModal","closeDetailModal","changeGallery","jumpGallery","toggleMobileMenu"].forEach(n => { window[n] = _stub(n); });
+</script>
 <script type="module">
-// ── FIREBASE SETUP ──
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
 import { getFirestore, collection, addDoc, getDocs, deleteDoc, doc, onSnapshot, orderBy, query } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
-// No Firebase Storage needed — images go to Imgur (100% free, no account, permanent hosting)
 
 const firebaseConfig = {
   apiKey: "AIzaSyAc_sVCh5PDb5vWWo3-54AWjf7hKCVT-kM",
@@ -720,11 +708,9 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-// ── CLOUDINARY CONFIG (free plan — sign up at cloudinary.com) ──
-const CLOUDINARY_CLOUD = 'cnayf5pw';            // ✅ your Cloudinary cloud name
-const CLOUDINARY_PRESET = 'Property Adda';      // ✅ your Cloudinary upload preset
+const CLOUDINARY_CLOUD = 'cnayf5pw';
+const CLOUDINARY_PRESET = 'Property Adda';
 
-// ── LOCATIONS ──
 let locations = [
   'Channi Himmat','Gandhi Nagar','Trikuta Nagar','Bakshi Nagar','Patel Nagar',
   'Roop Nagar','Nanak Nagar','Barnai','Sidhra','Talab Tillo','Rehari Colony',
@@ -737,8 +723,9 @@ let properties = [];
 let currentFilter = 'all';
 let locationFilter = '';
 
-// ── MULTI-IMAGE STATE ──
-window._propImages = []; // Array of base64 strings
+// Image state — File objects for upload, base64 strings for preview
+window._propImageFiles = [];
+window._propImagePreviews = [];
 
 // ── HELPERS ──
 function getBadgeClass(type) { return type==='flat'?'badge-flat':type==='plot'?'badge-plot':'badge-rental'; }
@@ -780,15 +767,12 @@ function renderCards() {
   }
 
   grid.innerHTML = filtered.map(p => {
-    // images: support new multi-image array OR old single img string
     const imgs = Array.isArray(p.images) && p.images.length > 0 ? p.images : (p.img ? [p.img] : []);
     const coverImg = imgs[0] || '';
     const imgCount = imgs.length;
-
     const imgHtml = coverImg
       ? `<img src="${coverImg}" alt="${p.title}" onerror="this.parentElement.innerHTML='${renderPlaceholder(p.type).replace(/'/g,"\\'")}'">`
       : renderPlaceholder(p.type);
-
     return `
     <div class="prop-card" data-type="${p.type}" data-id="${p.firestoreId}">
       <div class="prop-img" onclick="openDetailModal('${p.firestoreId}')">
@@ -823,12 +807,8 @@ let galleryImages = [];
 function openDetailModal(propId) {
   const p = properties.find(x => x.firestoreId === propId);
   if(!p) return;
-
-  // Build images array (backwards-compatible)
   galleryImages = Array.isArray(p.images) && p.images.length > 0 ? p.images : (p.img ? [p.img] : []);
   galleryIndex = 0;
-
-  // Gallery main
   const galleryMain = document.getElementById('galleryMain');
   if(galleryImages.length === 0) {
     galleryMain.innerHTML = `<div class="placeholder-big">${getTypeIcon(p.type)}<span style="font-size:18px;margin-top:12px;opacity:0.5">${getTypeLabel(p.type)}</span></div>`;
@@ -844,8 +824,6 @@ function openDetailModal(propId) {
       `<img src="${src}" class="${i===0?'active':''}" alt="Photo ${i+1}">`
     ).join('') + navHtml;
   }
-
-  // Thumbnails
   const thumbsEl = document.getElementById('galleryThumbs');
   if(galleryImages.length > 1) {
     thumbsEl.style.display = 'flex';
@@ -856,42 +834,26 @@ function openDetailModal(propId) {
     thumbsEl.style.display = 'none';
     thumbsEl.innerHTML = '';
   }
-
-  // Info
   document.getElementById('detailPrice').textContent = p.price;
   document.getElementById('detailTitle').textContent = p.title;
   document.getElementById('detailLocation').textContent = p.location + ', Jammu';
   document.getElementById('detailBadges').innerHTML = `
     <span class="type-badge ${getBadgeClass(p.type)}" style="position:static;margin-right:4px;">${getTypeLabel(p.type)}</span>
     <span class="status-badge ${getStatusClass(p.status)}" style="position:static;">${p.status}</span>`;
-
-  // Specs
   let specsHtml = '';
   if(p.beds > 0) specsHtml += `<div class="detail-spec"><div class="spec-icon">🛏️</div><div class="spec-val">${p.beds}</div><div class="spec-label">Bedroom${p.beds>1?'s':''}</div></div>`;
   if(p.baths > 0) specsHtml += `<div class="detail-spec"><div class="spec-icon">🚿</div><div class="spec-val">${p.baths}</div><div class="spec-label">Bathroom${p.baths>1?'s':''}</div></div>`;
   if(p.area && p.area !== 'N/A') specsHtml += `<div class="detail-spec"><div class="spec-icon">📐</div><div class="spec-val">${p.area}</div><div class="spec-label">Sq Ft</div></div>`;
   if(galleryImages.length > 0) specsHtml += `<div class="detail-spec"><div class="spec-icon">📷</div><div class="spec-val">${galleryImages.length}</div><div class="spec-label">Photo${galleryImages.length>1?'s':''}</div></div>`;
   document.getElementById('detailSpecs').innerHTML = specsHtml;
-
-  // Description
   const descSection = document.getElementById('detailDescSection');
   const descEl = document.getElementById('detailDesc');
-  if(p.desc && p.desc.trim()) {
-    descEl.textContent = p.desc;
-    descSection.style.display = 'block';
-  } else {
-    descSection.style.display = 'none';
-  }
-
-  // Actions
+  if(p.desc && p.desc.trim()) { descEl.textContent = p.desc; descSection.style.display = 'block'; }
+  else { descSection.style.display = 'none'; }
   window._detailPropId = propId;
-  document.getElementById('detailCallBtn').onclick = () => {
-    closeDetailModal();
-    openCallModal(propId);
-  };
+  document.getElementById('detailCallBtn').onclick = () => { closeDetailModal(); openCallModal(propId); };
   const waMsg = encodeURIComponent(`Hello Sunny,\n\nI'm interested in this property:\n🏠 ${p.title}\n📍 ${p.location}, Jammu\n💰 ${p.price}\n\nPlease share more details.`);
   document.getElementById('detailWaBtn').href = `https://wa.me/917006628484?text=${waMsg}`;
-
   document.getElementById('detailModal').classList.add('open');
   document.body.style.overflow = 'hidden';
 }
@@ -900,15 +862,11 @@ function closeDetailModal() {
   document.getElementById('detailModal').classList.remove('open');
   document.body.style.overflow = '';
 }
-
 function changeGallery(dir) {
   galleryIndex = (galleryIndex + dir + galleryImages.length) % galleryImages.length;
   updateGalleryDisplay();
 }
-function jumpGallery(idx) {
-  galleryIndex = idx;
-  updateGalleryDisplay();
-}
+function jumpGallery(idx) { galleryIndex = idx; updateGalleryDisplay(); }
 function updateGalleryDisplay() {
   const imgs = document.querySelectorAll('#galleryMain img');
   const thumbs = document.querySelectorAll('#galleryThumbs .gallery-thumb');
@@ -916,16 +874,12 @@ function updateGalleryDisplay() {
   thumbs.forEach((t, i) => t.classList.toggle('active', i === galleryIndex));
   const counter = document.getElementById('galleryCounter');
   if(counter) counter.textContent = `${galleryIndex+1} / ${galleryImages.length}`;
-  // scroll thumb into view
   if(thumbs[galleryIndex]) thumbs[galleryIndex].scrollIntoView({behavior:'smooth',block:'nearest',inline:'center'});
 }
 
-// Close detail on overlay click
 document.getElementById('detailModal').addEventListener('click', function(e) {
   if(e.target === this) closeDetailModal();
 });
-
-// Keyboard navigation for gallery
 document.addEventListener('keydown', function(e) {
   if(!document.getElementById('detailModal').classList.contains('open')) return;
   if(e.key === 'ArrowLeft') changeGallery(-1);
@@ -1056,11 +1010,8 @@ function renderAdminTable() {
 
 async function deleteProp(firestoreId) {
   if(!confirm('Delete this property?')) return;
-  try {
-    await deleteDoc(doc(db, 'properties', firestoreId));
-  } catch(e) {
-    alert('Error deleting: ' + e.message);
-  }
+  try { await deleteDoc(doc(db, 'properties', firestoreId)); }
+  catch(e) { alert('Error deleting: ' + e.message); }
 }
 
 async function addProperty() {
@@ -1074,16 +1025,10 @@ async function addProperty() {
   if(!price) { alert('Please enter a price'); return; }
   if(!location) { alert('Please select or type a location'); return; }
 
-  if(CLOUDINARY_CLOUD === 'YOUR_CLOUD_NAME') {
-    alert('⚠️ Please set your Cloudinary Cloud Name and Upload Preset in the code first.\n\nSign up free at cloudinary.com — no credit card needed.');
-    return;
-  }
-
   const submitBtn = document.querySelector('#addPropModal .submit-btn');
   submitBtn.disabled = true;
 
   try {
-    // ── Upload each image to Cloudinary (free hosting) ──
     let imageUrls = [];
     const files = window._propImageFiles || [];
     if(files.length > 0) {
@@ -1093,9 +1038,7 @@ async function addProperty() {
         imageUrls.push(url);
       }
     }
-
     submitBtn.textContent = '⏳ Saving property...';
-
     const p = {
       title, price, location,
       type: document.getElementById('newType').value,
@@ -1108,7 +1051,6 @@ async function addProperty() {
       img: imageUrls[0] || '',
       createdAt: Date.now()
     };
-
     await addDoc(collection(db, 'properties'), p);
     document.getElementById('addPropSuccess').style.display = 'block';
     setTimeout(() => {
@@ -1125,28 +1067,20 @@ async function addProperty() {
   }
 }
 
-// Upload one image file to Cloudinary and return the public URL
 async function uploadToCloudinary(file) {
-  // Compress to max 1200px before uploading
   const blob = await compressToBlob(file, 1200, 0.82);
   const formData = new FormData();
   formData.append('file', blob, file.name);
   formData.append('upload_preset', CLOUDINARY_PRESET);
   formData.append('folder', 'property-adda');
-
   const res = await fetch(`https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD}/image/upload`, {
-    method: 'POST',
-    body: formData
+    method: 'POST', body: formData
   });
-  if(!res.ok) {
-    const err = await res.json();
-    throw new Error(err.error?.message || 'Cloudinary upload failed');
-  }
+  if(!res.ok) { const err = await res.json(); throw new Error(err.error?.message || 'Cloudinary upload failed'); }
   const data = await res.json();
-  return data.secure_url; // permanent HTTPS image URL
+  return data.secure_url;
 }
 
-// Compress a File to a Blob at given max dimension and quality
 function compressToBlob(file, maxPx, quality) {
   return new Promise((resolve) => {
     const reader = new FileReader();
@@ -1172,17 +1106,18 @@ function resetAddPropForm() {
   document.getElementById('newLocation').value = '';
   document.getElementById('newLocationCustom').style.display = 'none';
   document.getElementById('newLocationCustom').value = '';
-  window._propImages = [];      // preview base64 thumbnails
-  window._propImageFiles = [];  // actual File objects for upload
-  document.getElementById('multiImgStrip').innerHTML = '';
+  window._propImageFiles = [];
+  window._propImagePreviews = [];
   document.getElementById('propImgFiles').value = '';
-  renderMultiImgStrip();
+  renderMultiImgGrid();
 }
 
-// ── MULTI IMAGE UPLOAD ──
+// ── MULTI IMAGE UPLOAD — FIXED ──
+
+// Called when "Add Photos" button is clicked
 function askUploadPwd() {
   if(window._uploadVerified) {
-    document.getElementById('propImgFiles').click();
+    triggerFilePicker();
     return;
   }
   document.getElementById('uploadPwdInput').value = '';
@@ -1190,96 +1125,140 @@ function askUploadPwd() {
   document.getElementById('uploadPwdModal').classList.add('open');
 }
 
+function triggerFilePicker() {
+  const input = document.getElementById('propImgFiles');
+  // Reset so same files can be re-picked if needed
+  input.value = '';
+  input.click();
+}
+
 function checkUploadPwd() {
   const pwd = document.getElementById('uploadPwdInput').value;
   if(pwd === 'thirdeyetechnologies') {
     window._uploadVerified = true;
     document.getElementById('uploadPwdModal').classList.remove('open');
-    document.getElementById('propImgFiles').click();
+    triggerFilePicker();
   } else {
     document.getElementById('uploadPwdError').style.display = 'block';
     document.getElementById('uploadPwdInput').value = '';
   }
 }
 
+// File input change — can select MULTIPLE files at once
 function handleMultiImgSelect(input) {
   if(!input.files || input.files.length === 0) return;
-  const files = Array.from(input.files).slice(0, 10 - window._propImages.length);
+  const remaining = 10 - window._propImageFiles.length;
+  if(remaining <= 0) { alert('Maximum 10 photos already added.'); return; }
+  const files = Array.from(input.files).slice(0, remaining);
   processImageFiles(files);
 }
 
+// Drag & drop onto the zone
 function handleMultiImgDrop(e) {
   e.preventDefault();
-  document.getElementById('multiImgDrop').classList.remove('dragover');
-
+  document.getElementById('multiImgZone').classList.remove('dragover');
   if(!window._uploadVerified) {
-    // need to verify first
+    // Store pending drop files and ask for password
+    window._pendingDropFiles = Array.from(e.dataTransfer.files).filter(f => f.type.startsWith('image/'));
     document.getElementById('uploadPwdInput').value = '';
     document.getElementById('uploadPwdError').style.display = 'none';
     document.getElementById('uploadPwdModal').classList.add('open');
-    // store pending files
-    window._pendingDropFiles = Array.from(e.dataTransfer.files).filter(f => f.type.startsWith('image/'));
     return;
   }
-
+  const remaining = 10 - window._propImageFiles.length;
   const files = Array.from(e.dataTransfer.files)
     .filter(f => f.type.startsWith('image/'))
-    .slice(0, 10 - window._propImages.length);
+    .slice(0, remaining);
   processImageFiles(files);
 }
 
+// After password verified, check if there were pending drop files
+function afterVerifyCheckPending() {
+  if(window._pendingDropFiles && window._pendingDropFiles.length > 0) {
+    const remaining = 10 - window._propImageFiles.length;
+    const files = window._pendingDropFiles.slice(0, remaining);
+    window._pendingDropFiles = [];
+    processImageFiles(files);
+  } else {
+    triggerFilePicker();
+  }
+}
+
+// Override checkUploadPwd to handle pending drops
+window.checkUploadPwd = function() {
+  const pwd = document.getElementById('uploadPwdInput').value;
+  if(pwd === 'thirdeyetechnologies') {
+    window._uploadVerified = true;
+    document.getElementById('uploadPwdModal').classList.remove('open');
+    afterVerifyCheckPending();
+  } else {
+    document.getElementById('uploadPwdError').style.display = 'block';
+    document.getElementById('uploadPwdInput').value = '';
+  }
+};
+
 function processImageFiles(files) {
   files.forEach(file => {
-    if(window._propImages.length >= 10) return;
-    // Store the actual File for upload
+    if(window._propImageFiles.length >= 10) return;
     window._propImageFiles.push(file);
-    // Generate a preview thumbnail (base64 just for display)
+    // Create preview thumbnail
     const reader = new FileReader();
-    reader.onload = e => {
+    reader.onload = ev => {
       const img = new Image();
       img.onload = () => {
         const canvas = document.createElement('canvas');
-        const MAX = 300; // small preview only
+        const MAX = 300;
         let w = img.width, h = img.height;
         if(w > MAX) { h = Math.round(h * MAX / w); w = MAX; }
         if(h > MAX) { w = Math.round(w * MAX / h); h = MAX; }
         canvas.width = w; canvas.height = h;
         canvas.getContext('2d').drawImage(img, 0, 0, w, h);
-        const preview = canvas.toDataURL('image/jpeg', 0.60);
-        window._propImages.push(preview);
-        renderMultiImgStrip();
+        window._propImagePreviews.push(canvas.toDataURL('image/jpeg', 0.6));
+        renderMultiImgGrid();
       };
-      img.src = e.target.result;
+      img.src = ev.target.result;
     };
     reader.readAsDataURL(file);
   });
 }
 
-function renderMultiImgStrip() {
-  const strip = document.getElementById('multiImgStrip');
-  strip.innerHTML = window._propImages.map((src, i) => `
+function renderMultiImgGrid() {
+  const count = window._propImagePreviews.length;
+  const grid = document.getElementById('multiImgGrid');
+  const empty = document.getElementById('multiImgEmpty');
+  const countLabel = document.getElementById('imgCountLabel');
+  const addBtn = document.getElementById('addPhotosBtn');
+
+  // Update counter
+  countLabel.textContent = `${count} / 10 photos added`;
+
+  // Show/hide empty state
+  if(count === 0) {
+    empty.style.display = 'block';
+    grid.style.display = 'none';
+  } else {
+    empty.style.display = 'none';
+    grid.style.display = 'flex';
+  }
+
+  // Disable add button if at max
+  addBtn.disabled = count >= 10;
+  addBtn.textContent = count >= 10 ? '✅ Max 10 reached' : '📷 Add Photos';
+
+  // Render thumbnails
+  grid.innerHTML = window._propImagePreviews.map((src, i) => `
     <div class="multi-img-thumb-wrap">
       <img src="${src}" alt="Photo ${i+1}">
-      ${i===0 ? '<span style="position:absolute;bottom:0;left:0;right:0;background:var(--gold);color:white;font-size:9px;font-weight:700;text-align:center;border-radius:0 0 5px 5px;padding:1px;">COVER</span>' : ''}
-      <button class="remove-thumb" onclick="removeThumb(${i})">✕</button>
+      ${i === 0 ? '<div class="cover-label">COVER</div>' : ''}
+      <button class="remove-thumb" type="button" onclick="removeThumb(${i})" title="Remove photo">✕</button>
     </div>
   `).join('');
-
-  // Update drop area label
-  const label = document.querySelector('.multi-img-drop-label');
-  if(window._propImages.length >= 10) {
-    label.innerHTML = `<span style="color:var(--gold);font-size:13px;">✅ Maximum 10 photos added</span>`;
-  } else if(window._propImages.length > 0) {
-    label.innerHTML = `<span style="color:#555;font-size:13px;">📷 ${window._propImages.length}/10 photos • Click to add more</span>`;
-  } else {
-    label.innerHTML = `<div style="font-size:28px;margin-bottom:6px;">📷</div><strong style="color:#555;font-size:13px;">Click or drag & drop photos here</strong><br><span style="font-size:11px;">JPG, PNG • Max 10 photos • First photo = cover image</span>`;
-  }
 }
 
 function removeThumb(idx) {
-  window._propImages.splice(idx, 1);
   window._propImageFiles.splice(idx, 1);
-  renderMultiImgStrip();
+  window._propImagePreviews.splice(idx, 1);
+  renderMultiImgGrid();
 }
 
 // ── LOCATION MANAGEMENT ──
@@ -1336,38 +1315,48 @@ document.getElementById('newLocation').addEventListener('change', function() {
 
 // ── EXPOSE TO GLOBAL ──
 window.toggleMobileMenu = () => document.getElementById('mobileMenu').classList.toggle('open');
-window.filterProps = filterProps;
-window.filterByLocation = filterByLocation;
-window.applyFilters = applyFilters;
-window.doSearch = doSearch;
-window.openModal = openModal;
-window.closeModal = closeModal;
-window.openInquiryModal = openInquiryModal;
-window.openCallModal = openCallModal;
-window.submitCallBooking = submitCallBooking;
-window.showAdmin = showAdmin;
-window.checkAdmin = checkAdmin;
-window.logoutAdmin = logoutAdmin;
-window.switchTab = switchTab;
-window.deleteProp = deleteProp;
-window.addProperty = addProperty;
-window.askUploadPwd = askUploadPwd;
-window.checkUploadPwd = checkUploadPwd;
-window.handleMultiImgSelect = handleMultiImgSelect;
-window.handleMultiImgDrop = handleMultiImgDrop;
-window.removeThumb = removeThumb;
-window.addLocation = addLocation;
-window.deleteLocation = deleteLocation;
-window.openDetailModal = openDetailModal;
-window.closeDetailModal = closeDetailModal;
-window.changeGallery = changeGallery;
-window.jumpGallery = jumpGallery;
+window.filterProps = (...a) => filterProps(...a);
+window.filterByLocation = (...a) => filterByLocation(...a);
+window.applyFilters = () => applyFilters();
+window.doSearch = () => doSearch();
+window.openModal = (id) => openModal(id);
+window.closeModal = (id) => closeModal(id);
+window.openInquiryModal = () => openInquiryModal();
+window.openCallModal = (id) => openCallModal(id);
+window.submitCallBooking = () => submitCallBooking();
+window.showAdmin = () => showAdmin();
+window.checkAdmin = () => checkAdmin();
+window.logoutAdmin = () => logoutAdmin();
+window.switchTab = (t, el) => switchTab(t, el);
+window.deleteProp = (id) => deleteProp(id);
+window.addProperty = () => addProperty();
+window.askUploadPwd = () => askUploadPwd();
+window.checkUploadPwd = () => {
+  const pwd = document.getElementById('uploadPwdInput').value;
+  if(pwd === 'thirdeyetechnologies') {
+    window._uploadVerified = true;
+    document.getElementById('uploadPwdModal').classList.remove('open');
+    afterVerifyCheckPending();
+  } else {
+    document.getElementById('uploadPwdError').style.display = 'block';
+    document.getElementById('uploadPwdInput').value = '';
+  }
+};
+window.handleMultiImgSelect = (el) => handleMultiImgSelect(el);
+window.handleMultiImgDrop = (e) => handleMultiImgDrop(e);
+window.removeThumb = (i) => removeThumb(i);
+window.addLocation = () => addLocation();
+window.deleteLocation = (i) => deleteLocation(i);
+window.openDetailModal = (id) => openDetailModal(id);
+window.closeDetailModal = () => closeDetailModal();
+window.changeGallery = (d) => changeGallery(d);
+window.jumpGallery = (i) => jumpGallery(i);
 
 // ── INIT ──
 showLoading();
 populateLocationDropdowns();
-window._propImages = [];
 window._propImageFiles = [];
+window._propImagePreviews = [];
 
 const q = query(collection(db, 'properties'), orderBy('createdAt', 'desc'));
 onSnapshot(q, (snapshot) => {
