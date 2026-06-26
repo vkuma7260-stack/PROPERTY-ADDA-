@@ -80,9 +80,8 @@
 
   .prop-card { background: white; border: 1px solid var(--border); border-radius: 12px; overflow: hidden; transition: box-shadow 0.2s; }
   .prop-card:hover { box-shadow: 0 12px 30px rgba(0,0,0,0.1); }
-  .prop-img { position: relative; height: 200px; overflow: hidden; background: #e8e0d0; cursor: pointer; }
-  .prop-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s; }
-  .prop-img:hover img { transform: scale(1.04); }
+  .prop-img { position: relative; min-height: 160px; max-height: 240px; overflow: hidden; background: #1a2340; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+  .prop-img img { max-width: 100%; max-height: 240px; width: auto; height: auto; display: block; background: #1a2340; }
   .prop-img-placeholder { width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; background: linear-gradient(135deg, #e8e0d0, #d4c8a8); color: #888; cursor: pointer; }
   .prop-img-placeholder .house-icon { font-size: 48px; margin-bottom: 8px; }
   .img-count-badge { position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); color: white; font-size: 11px; font-weight: 700; padding: 3px 9px; border-radius: 12px; display: flex; align-items: center; gap: 4px; backdrop-filter: blur(4px); }
@@ -117,9 +116,16 @@
   .detail-modal-close { position: absolute; top: 14px; right: 16px; font-size: 24px; cursor: pointer; color: white; background: rgba(0,0,0,0.4); border: none; width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; z-index: 10; font-weight: 700; line-height: 1; }
   .detail-modal-close:hover { background: rgba(0,0,0,0.7); }
 
-  .gallery-main { position: relative; height: 380px; background: #1a2340; overflow: hidden; }
-  .gallery-main img { width: 100%; height: 100%; object-fit: cover; display: none; }
+  .gallery-main { position: relative; background: #111827; overflow: hidden; display: flex; align-items: center; justify-content: center; min-height: 280px; max-height: 75vh; }
+  .gallery-main img { max-width: 100%; max-height: 75vh; width: auto; height: auto; display: none; transform-origin: center center; transition: transform 0.2s ease; cursor: grab; user-select: none; vertical-align: middle; }
   .gallery-main img.active { display: block; }
+  .gallery-main img.grabbing { cursor: grabbing; }
+  .zoom-controls { position: absolute; bottom: 14px; left: 50%; transform: translateX(-50%); display: flex; align-items: center; gap: 6px; background: rgba(0,0,0,0.6); border-radius: 20px; padding: 5px 10px; z-index: 5; backdrop-filter: blur(4px); }
+  .zoom-btn { background: none; border: none; color: white; font-size: 18px; cursor: pointer; width: 30px; height: 30px; display: flex; align-items: center; justify-content: center; border-radius: 50%; transition: background 0.2s; line-height: 1; }
+  .zoom-btn:hover { background: rgba(201,168,76,0.7); }
+  .zoom-level { color: white; font-size: 12px; font-weight: 700; min-width: 36px; text-align: center; }
+  .zoom-reset-btn { background: none; border: 1px solid rgba(255,255,255,0.3); color: white; font-size: 10px; cursor: pointer; padding: 2px 8px; border-radius: 10px; font-weight: 600; }
+  .zoom-reset-btn:hover { background: rgba(201,168,76,0.5); border-color: var(--gold); }
   .gallery-main .placeholder-big { width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; color: rgba(255,255,255,0.4); font-size: 60px; }
   .gallery-nav { position: absolute; top: 50%; transform: translateY(-50%); width: 100%; display: flex; justify-content: space-between; padding: 0 14px; pointer-events: none; }
   .gallery-nav-btn { pointer-events: all; background: rgba(0,0,0,0.55); color: white; border: none; width: 40px; height: 40px; border-radius: 50%; font-size: 18px; cursor: pointer; display: flex; align-items: center; justify-content: center; backdrop-filter: blur(4px); transition: background 0.2s; }
@@ -267,7 +273,7 @@
     .admin-table { font-size: 12px; display: block; overflow-x: auto; }
     .admin-tabs { overflow-x: auto; }
     .admin-tab { white-space: nowrap; padding: 10px 14px; font-size: 13px; }
-    .gallery-main { height: 240px; }
+    .gallery-main { min-height: 200px; max-height: 60vh; }
     .detail-body { padding: 16px; }
     .detail-price { font-size: 22px; }
     .detail-title { font-size: 16px; }
@@ -816,6 +822,10 @@ document.getElementById('listingsGrid').addEventListener('click', function(e) {
 // ── DETAIL MODAL ──
 let galleryIndex = 0;
 let galleryImages = [];
+let zoomScale = 1;
+const ZOOM_STEP = 0.25;
+const ZOOM_MIN = 1;
+const ZOOM_MAX = 4;
 
 function openDetailModal(propId) {
   const p = properties.find(x => x.firestoreId === propId);
@@ -832,10 +842,16 @@ function openDetailModal(propId) {
            <button class="gallery-nav-btn" onclick="changeGallery(1)">&#8250;</button>
          </div>
          <div class="gallery-counter" id="galleryCounter">1 / ${galleryImages.length}</div>`
-      : '';
+      : ``;
+    const zoomHtml = `<div class="zoom-controls">
+           <button class="zoom-btn" onclick="zoomGallery(-1)" title="Zoom Out">−</button>
+           <span class="zoom-level" id="zoomLevel">100%</span>
+           <button class="zoom-btn" onclick="zoomGallery(1)" title="Zoom In">+</button>
+           <button class="zoom-reset-btn" onclick="zoomReset()">Reset</button>
+         </div>`;
     galleryMain.innerHTML = galleryImages.map((src, i) =>
       `<img src="${src}" class="${i===0?'active':''}" alt="Photo ${i+1}">`
-    ).join('') + navHtml;
+    ).join('') + navHtml + zoomHtml;
   }
   const thumbsEl = document.getElementById('galleryThumbs');
   if(galleryImages.length > 1) {
@@ -871,23 +887,57 @@ function openDetailModal(propId) {
   document.body.style.overflow = 'hidden';
 }
 
+function getActiveImg() {
+  return document.querySelector('#galleryMain img.active');
+}
+function applyZoom() {
+  const img = getActiveImg();
+  if(!img) return;
+  img.style.transform = `scale(${zoomScale})`;
+  img.style.cursor = zoomScale > 1 ? 'zoom-out' : 'grab';
+  const label = document.getElementById('zoomLevel');
+  if(label) label.textContent = Math.round(zoomScale * 100) + '%';
+}
+function zoomGallery(dir) {
+  zoomScale = Math.min(ZOOM_MAX, Math.max(ZOOM_MIN, zoomScale + dir * ZOOM_STEP));
+  applyZoom();
+}
+function zoomReset() {
+  zoomScale = 1;
+  applyZoom();
+}
+// Mouse wheel zoom on gallery
+document.getElementById('galleryMain').addEventListener('wheel', function(e) {
+  if(!document.getElementById('detailModal').classList.contains('open')) return;
+  e.preventDefault();
+  const dir = e.deltaY < 0 ? 1 : -1;
+  zoomScale = Math.min(ZOOM_MAX, Math.max(ZOOM_MIN, zoomScale + dir * ZOOM_STEP));
+  applyZoom();
+}, { passive: false });
+
 function closeDetailModal() {
   document.getElementById('detailModal').classList.remove('open');
   document.body.style.overflow = '';
+  zoomScale = 1;
 }
 function changeGallery(dir) {
   galleryIndex = (galleryIndex + dir + galleryImages.length) % galleryImages.length;
+  zoomScale = 1;
   updateGalleryDisplay();
 }
-function jumpGallery(idx) { galleryIndex = idx; updateGalleryDisplay(); }
+function jumpGallery(idx) { galleryIndex = idx; zoomScale = 1; updateGalleryDisplay(); }
 function updateGalleryDisplay() {
   const imgs = document.querySelectorAll('#galleryMain img');
   const thumbs = document.querySelectorAll('#galleryThumbs .gallery-thumb');
-  imgs.forEach((img, i) => img.classList.toggle('active', i === galleryIndex));
+  imgs.forEach((img, i) => {
+    img.classList.toggle('active', i === galleryIndex);
+    img.style.transform = '';
+  });
   thumbs.forEach((t, i) => t.classList.toggle('active', i === galleryIndex));
   const counter = document.getElementById('galleryCounter');
   if(counter) counter.textContent = `${galleryIndex+1} / ${galleryImages.length}`;
   if(thumbs[galleryIndex]) thumbs[galleryIndex].scrollIntoView({behavior:'smooth',block:'nearest',inline:'center'});
+  applyZoom();
 }
 
 document.getElementById('detailModal').addEventListener('click', function(e) {
@@ -1367,6 +1417,8 @@ window.deleteLocation = deleteLocation;
 window.openDetailModal = openDetailModal;
 window.closeDetailModal = closeDetailModal;
 window.changeGallery = changeGallery;
+window.zoomGallery = zoomGallery;
+window.zoomReset = zoomReset;
 window.jumpGallery = jumpGallery;
 
 // ── INIT ──
