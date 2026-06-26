@@ -1,0 +1,1381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Property Adda - Your Property, Our Priority</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --gold: #c9a84c;
+    --gold-light: #e8c96a;
+    --gold-dark: #a8862e;
+    --navy: #1a2340;
+    --white: #ffffff;
+    --light: #f8f6f0;
+    --gray: #666;
+    --border: #e5dfc8;
+  }
+  body { font-family: 'Segoe UI', sans-serif; background: #fff; color: #222; }
+
+  /* TOP BAR */
+  .topbar { background: var(--navy); color: #ccc; font-size: 12px; padding: 6px 30px; display: flex; justify-content: space-between; align-items: center; position: relative; z-index: 600; }
+  .topbar a { color: var(--gold); text-decoration: none; margin-left: 12px; }
+
+  /* NAVBAR */
+  nav { background: #fff; box-shadow: 0 2px 10px rgba(0,0,0,0.1); padding: 0 30px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 500; flex-wrap: wrap; }
+  .logo { display: flex; align-items: center; gap: 10px; padding: 12px 0; }
+  .logo-icon { width: 44px; height: 44px; background: var(--gold); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-weight: 900; color: white; font-size: 18px; }
+  .logo-text h1 { font-size: 22px; font-weight: 800; color: var(--navy); line-height: 1; }
+  .logo-text span { font-size: 11px; color: var(--gold); font-weight: 500; letter-spacing: 1px; }
+  .nav-links { display: flex; align-items: center; gap: 0; }
+  .nav-links a { padding: 20px 14px; color: #333; text-decoration: none; font-size: 14px; font-weight: 500; border-bottom: 3px solid transparent; transition: all 0.2s; }
+  .nav-links a:hover { color: var(--gold); border-bottom-color: var(--gold); }
+  .nav-post-btn { background: var(--gold); color: white; padding: 9px 18px; border-radius: 6px; font-weight: 600; font-size: 13px; text-decoration: none; margin-left: 10px; }
+  .nav-post-btn:hover { background: var(--gold-dark); }
+
+  /* HERO */
+  .hero { background: linear-gradient(135deg, var(--navy) 0%, #2d3a5c 60%, #1a2340 100%); padding: 60px 30px; text-align: center; color: white; position: relative; overflow: hidden; }
+  .hero::before { content: ''; position: absolute; inset: 0; background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23c9a84c' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E"); }
+  .hero h2 { font-size: 38px; font-weight: 800; margin-bottom: 10px; position: relative; }
+  .hero h2 span { color: var(--gold); }
+  .hero p { font-size: 16px; color: rgba(255,255,255,0.75); margin-bottom: 35px; position: relative; }
+
+  /* SEARCH BOX */
+  .search-box { background: white; border-radius: 12px; padding: 20px; max-width: 860px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr 1fr 1fr auto; gap: 12px; position: relative; box-shadow: 0 8px 30px rgba(0,0,0,0.3); }
+  .search-box select, .search-box input { padding: 12px 14px; border: 1.5px solid #e0e0e0; border-radius: 8px; font-size: 14px; color: #333; outline: none; width: 100%; }
+  .search-box select:focus, .search-box input:focus { border-color: var(--gold); }
+  .search-btn { background: var(--gold); color: white; border: none; padding: 12px 24px; border-radius: 8px; font-size: 15px; font-weight: 700; cursor: pointer; white-space: nowrap; }
+  .search-btn:hover { background: var(--gold-dark); }
+
+  /* STATS BAR */
+  .stats-bar { background: var(--gold); display: flex; justify-content: center; gap: 60px; padding: 18px; }
+  .stat-item { text-align: center; color: white; }
+  .stat-item strong { display: block; font-size: 22px; font-weight: 800; }
+  .stat-item span { font-size: 12px; opacity: 0.85; }
+
+  /* FILTER TABS */
+  .filter-section { background: var(--light); padding: 20px 30px; border-bottom: 1px solid var(--border); }
+  .filter-row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+  .filter-label { font-weight: 600; font-size: 13px; color: var(--navy); margin-right: 5px; }
+  .filter-btn { padding: 7px 16px; border: 1.5px solid var(--border); border-radius: 20px; background: white; font-size: 13px; cursor: pointer; transition: all 0.2s; }
+  .filter-btn:hover, .filter-btn.active { background: var(--gold); color: white; border-color: var(--gold); }
+  .filter-select { padding: 7px 14px; border: 1.5px solid var(--border); border-radius: 20px; font-size: 13px; outline: none; cursor: pointer; }
+
+  /* MAIN LAYOUT */
+  .main-layout { display: grid; grid-template-columns: 280px 1fr; max-width: 1300px; margin: 0 auto; padding: 30px; gap: 25px; overflow: hidden; }
+
+  /* SIDEBAR */
+  .sidebar { background: white; border: 1px solid var(--border); border-radius: 12px; padding: 0; overflow: hidden; align-self: start; position: sticky; top: 70px; }
+  .sidebar-header { background: var(--navy); color: white; padding: 16px 20px; font-weight: 700; font-size: 15px; }
+  .sidebar-section { padding: 18px 20px; border-bottom: 1px solid var(--border); }
+  .sidebar-section h4 { font-size: 13px; font-weight: 700; color: var(--navy); margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
+  .check-item { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; font-size: 13px; color: #444; cursor: pointer; }
+  .check-item input { accent-color: var(--gold); }
+  .sidebar-select { width: 100%; padding: 9px 12px; border: 1.5px solid var(--border); border-radius: 8px; font-size: 13px; outline: none; }
+  .sidebar-select:focus { border-color: var(--gold); }
+
+  /* CONTACT CARD IN SIDEBAR */
+  .contact-card { background: var(--navy); color: white; padding: 20px; }
+  .contact-card h4 { color: var(--gold); font-size: 14px; margin-bottom: 10px; }
+  .contact-card p { font-size: 13px; line-height: 1.6; opacity: 0.85; }
+  .contact-card .phone { font-size: 18px; font-weight: 700; color: var(--gold); margin: 10px 0 5px; }
+  .call-btn { display: block; background: var(--gold); color: white; text-align: center; padding: 10px; border-radius: 8px; text-decoration: none; font-weight: 700; margin-top: 12px; font-size: 13px; }
+
+  /* LISTINGS */
+  .listings-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+  .listings-header h3 { font-size: 20px; font-weight: 700; color: var(--navy); }
+  .listings-header span { color: var(--gray); font-size: 13px; }
+  .listings-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; overflow: hidden; }
+
+  /* PROPERTY CARD */
+  .prop-card { background: white; border: 1px solid var(--border); border-radius: 12px; overflow: hidden; transition: box-shadow 0.2s; }
+  .prop-card:hover { box-shadow: 0 12px 30px rgba(0,0,0,0.1); }
+  .prop-img { position: relative; height: 200px; overflow: hidden; background: #e8e0d0; cursor: pointer; }
+  .prop-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s; }
+  .prop-img:hover img { transform: scale(1.04); }
+  .prop-img-placeholder { width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; background: linear-gradient(135deg, #e8e0d0, #d4c8a8); color: #888; cursor: pointer; }
+  .prop-img-placeholder .house-icon { font-size: 48px; margin-bottom: 8px; }
+
+  /* IMAGE COUNT BADGE */
+  .img-count-badge { position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); color: white; font-size: 11px; font-weight: 700; padding: 3px 9px; border-radius: 12px; display: flex; align-items: center; gap: 4px; backdrop-filter: blur(4px); }
+
+  /* VIEW DETAILS OVERLAY */
+  .prop-img-overlay { position: absolute; inset: 0; background: rgba(26,35,64,0.55); display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.25s; }
+  .prop-img:hover .prop-img-overlay { opacity: 1; }
+  .prop-img-overlay span { color: white; font-weight: 700; font-size: 14px; background: var(--gold); padding: 8px 18px; border-radius: 20px; letter-spacing: 0.5px; }
+
+  .type-badge { position: absolute; top: 12px; left: 12px; padding: 4px 12px; border-radius: 20px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
+  .badge-flat { background: #1a6db5; color: white; }
+  .badge-plot { background: #2e7d32; color: white; }
+  .badge-rental { background: #7b1fa2; color: white; }
+  .status-badge { position: absolute; top: 12px; right: 12px; padding: 4px 10px; border-radius: 20px; font-size: 11px; font-weight: 700; }
+  .badge-ready { background: #e8f5e9; color: #2e7d32; }
+  .badge-under { background: #fff3e0; color: #e65100; }
+  .badge-new { background: var(--gold); color: white; }
+  .prop-body { padding: 16px; }
+  .prop-price { font-size: 20px; font-weight: 800; color: var(--navy); }
+  .prop-title { font-size: 15px; font-weight: 600; color: #333; margin: 4px 0 8px; line-height: 1.3; cursor: pointer; }
+  .prop-title:hover { color: var(--gold); }
+  .prop-location { font-size: 12px; color: var(--gray); margin-bottom: 12px; }
+  .prop-location::before { content: '📍 '; }
+  .prop-specs { display: flex; gap: 12px; padding: 10px 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); margin-bottom: 12px; flex-wrap: wrap; }
+  .spec-item { display: flex; align-items: center; gap: 4px; font-size: 12px; color: #555; }
+  .prop-actions { display: flex; gap: 8px; }
+  .btn-call { flex: 1; background: var(--gold); color: white; border: none; padding: 9px; border-radius: 8px; font-size: 13px; font-weight: 600; cursor: pointer; }
+  .btn-call:hover { background: var(--gold-dark); }
+  .btn-details { flex: 1; background: white; color: var(--navy); border: 2px solid var(--navy); padding: 9px; border-radius: 8px; font-size: 13px; font-weight: 600; cursor: pointer; }
+  .btn-details:hover { background: var(--navy); color: white; }
+
+  /* ── PROPERTY DETAIL MODAL ── */
+  .detail-modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.8); z-index: 2000; align-items: flex-start; justify-content: center; overflow-y: auto; padding: 20px; }
+  .detail-modal-overlay.open { display: flex; }
+  .detail-modal { background: white; border-radius: 16px; width: 100%; max-width: 900px; margin: auto; overflow: hidden; position: relative; }
+  .detail-modal-close { position: absolute; top: 14px; right: 16px; font-size: 24px; cursor: pointer; color: white; background: rgba(0,0,0,0.4); border: none; width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; z-index: 10; font-weight: 700; line-height: 1; }
+  .detail-modal-close:hover { background: rgba(0,0,0,0.7); }
+
+  /* IMAGE GALLERY */
+  .gallery-main { position: relative; height: 380px; background: #1a2340; overflow: hidden; }
+  .gallery-main img { width: 100%; height: 100%; object-fit: cover; display: none; }
+  .gallery-main img.active { display: block; }
+  .gallery-main .placeholder-big { width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; color: rgba(255,255,255,0.4); font-size: 60px; }
+  .gallery-nav { position: absolute; top: 50%; transform: translateY(-50%); width: 100%; display: flex; justify-content: space-between; padding: 0 14px; pointer-events: none; }
+  .gallery-nav-btn { pointer-events: all; background: rgba(0,0,0,0.55); color: white; border: none; width: 40px; height: 40px; border-radius: 50%; font-size: 18px; cursor: pointer; display: flex; align-items: center; justify-content: center; backdrop-filter: blur(4px); transition: background 0.2s; }
+  .gallery-nav-btn:hover { background: rgba(201,168,76,0.85); }
+  .gallery-counter { position: absolute; bottom: 14px; right: 16px; background: rgba(0,0,0,0.55); color: white; font-size: 12px; font-weight: 700; padding: 4px 12px; border-radius: 12px; }
+  .gallery-thumbnails { display: flex; gap: 8px; padding: 12px 16px; background: #f0ece0; overflow-x: auto; }
+  .gallery-thumbnails::-webkit-scrollbar { height: 4px; }
+  .gallery-thumbnails::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 4px; }
+  .gallery-thumb { width: 70px; height: 54px; border-radius: 7px; object-fit: cover; cursor: pointer; border: 2.5px solid transparent; flex-shrink: 0; transition: border-color 0.2s; opacity: 0.7; }
+  .gallery-thumb.active { border-color: var(--gold); opacity: 1; }
+  .gallery-thumb-placeholder { width: 70px; height: 54px; border-radius: 7px; background: #d4c8a8; display: flex; align-items: center; justify-content: center; font-size: 22px; flex-shrink: 0; border: 2.5px solid var(--gold); }
+
+  /* DETAIL BODY */
+  .detail-body { padding: 24px 28px; }
+  .detail-header { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 12px; margin-bottom: 16px; }
+  .detail-price { font-size: 28px; font-weight: 900; color: var(--navy); }
+  .detail-badges { display: flex; gap: 8px; flex-wrap: wrap; }
+  .detail-title { font-size: 20px; font-weight: 700; color: #222; margin-bottom: 6px; }
+  .detail-location { font-size: 14px; color: var(--gray); margin-bottom: 18px; }
+  .detail-location::before { content: '📍 '; }
+
+  .detail-specs { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 12px; margin-bottom: 20px; }
+  .detail-spec { background: var(--light); border: 1px solid var(--border); border-radius: 10px; padding: 12px 14px; text-align: center; }
+  .detail-spec .spec-icon { font-size: 22px; margin-bottom: 4px; }
+  .detail-spec .spec-val { font-size: 15px; font-weight: 700; color: var(--navy); }
+  .detail-spec .spec-label { font-size: 11px; color: var(--gray); margin-top: 2px; }
+
+  .detail-desc-section { margin-bottom: 20px; }
+  .detail-desc-section h4 { font-size: 14px; font-weight: 700; color: var(--navy); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.5px; border-bottom: 2px solid var(--gold); padding-bottom: 6px; display: inline-block; }
+  .detail-desc-section p { font-size: 14px; color: #444; line-height: 1.7; }
+
+  .detail-actions { display: flex; gap: 12px; flex-wrap: wrap; padding-top: 16px; border-top: 1px solid var(--border); }
+  .detail-call-btn { flex: 1; min-width: 160px; background: var(--gold); color: white; border: none; padding: 13px 20px; border-radius: 10px; font-size: 15px; font-weight: 700; cursor: pointer; }
+  .detail-call-btn:hover { background: var(--gold-dark); }
+  .detail-wa-btn { flex: 1; min-width: 160px; background: #25D366; color: white; border: none; padding: 13px 20px; border-radius: 10px; font-size: 15px; font-weight: 700; cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; justify-content: center; gap: 6px; }
+  .detail-wa-btn:hover { background: #1da851; }
+
+  /* SERVICES */
+  .services-section { background: var(--light); padding: 50px 30px; text-align: center; }
+  .services-section h2 { font-size: 28px; font-weight: 800; color: var(--navy); margin-bottom: 8px; }
+  .services-section p { color: var(--gray); margin-bottom: 35px; }
+  .services-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 20px; max-width: 1100px; margin: 0 auto; }
+  .service-card { background: white; border-radius: 12px; padding: 28px 16px; border: 1px solid var(--border); transition: all 0.2s; }
+  .service-card:hover { border-color: var(--gold); transform: translateY(-3px); box-shadow: 0 8px 20px rgba(201,168,76,0.15); }
+  .service-icon { font-size: 36px; margin-bottom: 12px; }
+  .service-card h4 { font-size: 15px; font-weight: 700; color: var(--navy); margin-bottom: 6px; }
+  .service-card p { font-size: 12px; color: var(--gray); }
+
+  /* TRUST BADGES */
+  .trust-section { background: var(--navy); padding: 40px 30px; display: flex; justify-content: center; gap: 50px; flex-wrap: wrap; }
+  .trust-item { text-align: center; color: white; }
+  .trust-item .icon { font-size: 32px; margin-bottom: 8px; }
+  .trust-item h4 { font-size: 14px; font-weight: 700; color: var(--gold); }
+  .trust-item p { font-size: 12px; opacity: 0.7; margin-top: 3px; }
+
+  /* FOOTER */
+  footer { background: #0f1828; color: #aaa; padding: 40px 30px 20px; }
+  .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 30px; margin-bottom: 30px; }
+  .footer-brand h3 { color: var(--gold); font-size: 20px; margin-bottom: 8px; }
+  .footer-brand p { font-size: 13px; line-height: 1.7; }
+  .footer-col h4 { color: white; font-size: 14px; margin-bottom: 14px; border-bottom: 1px solid #2a3a50; padding-bottom: 8px; }
+  .footer-col a { display: block; color: #aaa; text-decoration: none; font-size: 13px; margin-bottom: 7px; }
+  .footer-col a:hover { color: var(--gold); }
+  .footer-bottom { border-top: 1px solid #1e2e42; padding-top: 18px; display: flex; justify-content: space-between; align-items: center; font-size: 12px; }
+  .footer-bottom a { color: var(--gold); text-decoration: none; }
+
+  /* WHATSAPP */
+  .whatsapp-btn { position: fixed; bottom: 25px; right: 25px; background: #25D366; color: white; width: 54px; height: 54px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 26px; text-decoration: none; box-shadow: 0 4px 15px rgba(37,211,102,0.4); z-index: 999; }
+
+  /* MODAL (generic) */
+  .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 1000; align-items: center; justify-content: center; }
+  .modal-overlay.open { display: flex; }
+  #uploadPwdModal { z-index: 1100; }
+  .modal { background: white; border-radius: 12px; padding: 30px; width: 90%; max-width: 480px; position: relative; max-height: 90vh; overflow-y: auto; }
+  .modal h2 { font-size: 22px; font-weight: 800; color: var(--navy); margin-bottom: 20px; }
+  .modal-close { position: absolute; top: 15px; right: 18px; font-size: 22px; cursor: pointer; color: #888; background: none; border: none; }
+  .form-group { margin-bottom: 15px; }
+  .form-group label { display: block; font-size: 13px; font-weight: 600; color: #444; margin-bottom: 5px; }
+  .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 10px 12px; border: 1.5px solid #ddd; border-radius: 8px; font-size: 14px; outline: none; }
+  .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: var(--gold); }
+  .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .submit-btn { width: 100%; background: var(--gold); color: white; border: none; padding: 12px; border-radius: 8px; font-size: 15px; font-weight: 700; cursor: pointer; margin-top: 5px; }
+  .submit-btn:hover { background: var(--gold-dark); }
+
+  /* ── MULTI-IMAGE UPLOAD AREA ── */
+  .multi-img-drop { border: 2px dashed #ddd; border-radius: 10px; padding: 16px; background: #fafafa; cursor: pointer; transition: border-color 0.2s; }
+  .multi-img-drop:hover, .multi-img-drop.dragover { border-color: var(--gold); background: #fffdf5; }
+  .multi-img-drop-label { text-align: center; color: #aaa; font-size: 13px; pointer-events: none; }
+  .multi-img-strip { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+  .multi-img-thumb-wrap { position: relative; width: 80px; height: 60px; }
+  .multi-img-thumb-wrap img { width: 80px; height: 60px; object-fit: cover; border-radius: 7px; border: 2px solid var(--border); }
+  .multi-img-thumb-wrap .remove-thumb { position: absolute; top: -6px; right: -6px; background: #dc3545; color: white; border: none; border-radius: 50%; width: 18px; height: 18px; font-size: 11px; cursor: pointer; display: flex; align-items: center; justify-content: center; font-weight: 700; }
+  .img-order-hint { font-size: 11px; color: #aaa; margin-top: 6px; }
+
+  /* ADMIN PANEL */
+  #adminPanel { display: none; }
+  #adminPanel.show { display: block; }
+  .admin-header { background: var(--navy); color: white; padding: 20px 30px; display: flex; justify-content: space-between; align-items: center; }
+  .admin-header h2 { color: var(--gold); }
+  .admin-body { max-width: 1200px; margin: 0 auto; padding: 30px; }
+  .admin-tabs { display: flex; gap: 0; border-bottom: 2px solid var(--border); margin-bottom: 25px; }
+  .admin-tab { padding: 10px 24px; cursor: pointer; font-weight: 600; border-bottom: 3px solid transparent; margin-bottom: -2px; color: #666; }
+  .admin-tab.active { color: var(--gold); border-bottom-color: var(--gold); }
+  .admin-content { display: none; }
+  .admin-content.active { display: block; }
+  .admin-table { width: 100%; border-collapse: collapse; }
+  .admin-table th, .admin-table td { padding: 12px 15px; text-align: left; border-bottom: 1px solid var(--border); font-size: 13px; }
+  .admin-table th { background: var(--light); font-weight: 700; color: var(--navy); }
+  .admin-table tr:hover td { background: #fafaf5; }
+  .del-btn { background: #dc3545; color: white; border: none; padding: 5px 12px; border-radius: 5px; cursor: pointer; font-size: 12px; }
+  .add-btn { background: var(--gold); color: white; border: none; padding: 10px 22px; border-radius: 8px; font-weight: 700; cursor: pointer; margin-bottom: 20px; }
+  .logout-btn { background: #dc3545; color: white; border: none; padding: 8px 18px; border-radius: 6px; cursor: pointer; font-weight: 600; }
+  .success-msg { background: #e8f5e9; border: 1px solid #81c784; color: #2e7d32; padding: 12px 16px; border-radius: 8px; margin-bottom: 15px; display: none; }
+
+  /* MOBILE RESPONSIVE */
+  @media (max-width: 768px) {
+    .topbar { flex-direction: column; gap: 4px; padding: 8px 15px; text-align: center; font-size: 11px; }
+    nav { padding: 0 15px; flex-wrap: wrap; }
+    .nav-links { display: none; }
+    .logo-text h1 { font-size: 18px; }
+    .hamburger { display: flex; flex-direction: column; gap: 5px; cursor: pointer; padding: 10px; }
+    .hamburger span { width: 24px; height: 2px; background: var(--navy); border-radius: 2px; }
+    .mobile-menu.open { display: block; }
+    .mobile-menu a { display: block; padding: 12px 20px; color: #333; text-decoration: none; font-size: 14px; font-weight: 500; border-bottom: 1px solid #f0f0f0; }
+    .mobile-menu a:last-child { background: var(--gold); color: white; margin: 10px 15px; border-radius: 8px; border-bottom: none; text-align: center; }
+    .hero { padding: 35px 15px; }
+    .hero h2 { font-size: 24px; }
+    .hero p { font-size: 14px; margin-bottom: 20px; }
+    .search-box { grid-template-columns: 1fr; gap: 8px; padding: 15px; }
+    .search-btn { width: 100%; padding: 13px; font-size: 16px; }
+    .stats-bar { gap: 20px; padding: 15px; flex-wrap: wrap; }
+    .stat-item strong { font-size: 18px; }
+    .filter-section { padding: 12px 15px; }
+    .filter-row { gap: 8px; }
+    .filter-btn { padding: 6px 12px; font-size: 12px; }
+    .main-layout { grid-template-columns: 1fr; padding: 15px; gap: 20px; }
+    .sidebar { position: static; }
+    .listings-grid { grid-template-columns: 1fr; gap: 15px; }
+    .services-section { padding: 30px 15px; }
+    .services-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+    .services-section h2 { font-size: 22px; }
+    .trust-section { gap: 25px; padding: 30px 15px; }
+    .footer-grid { grid-template-columns: 1fr; gap: 20px; }
+    .footer-bottom { flex-direction: column; gap: 8px; text-align: center; }
+    .modal { padding: 20px 15px; width: 95%; }
+    .form-grid { grid-template-columns: 1fr; }
+    .admin-header { padding: 15px; flex-direction: column; gap: 10px; align-items: flex-start; }
+    .admin-body { padding: 15px; }
+    .admin-table { font-size: 12px; display: block; overflow-x: auto; }
+    .admin-tabs { overflow-x: auto; }
+    .admin-tab { white-space: nowrap; padding: 10px 14px; font-size: 13px; }
+    .gallery-main { height: 240px; }
+    .detail-body { padding: 16px; }
+    .detail-price { font-size: 22px; }
+    .detail-title { font-size: 16px; }
+    .detail-actions { flex-direction: column; }
+  }
+
+  @media (max-width: 480px) {
+    .hero h2 { font-size: 20px; }
+    .services-grid { grid-template-columns: 1fr; }
+    .stats-bar { gap: 15px; }
+    .stat-item { min-width: 80px; }
+  }
+
+  .hamburger { display: none; }
+  .mobile-menu { display: none; width: 100%; background: white; border-top: 1px solid var(--border); padding: 10px 0; }
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="topbar">
+  <span>📍 Bachittar Complex, Channi Himmat, Jammu | 📞 7006628484</span>
+  <span>
+    <a href="#">Home</a>
+    <a href="#">About</a>
+    <a href="#">Contact</a>
+    <a href="#" onclick="showAdmin()">Admin</a>
+  </span>
+</div>
+
+<!-- NAVBAR -->
+<nav>
+  <div class="logo">
+    <div class="logo-icon">PA</div>
+    <div class="logo-text">
+      <h1>Property Adda</h1>
+      <span>YOUR PROPERTY, OUR PRIORITY</span>
+    </div>
+  </div>
+  <div class="nav-links">
+    <a href="#" onclick="filterProps('all')">All Properties</a>
+    <a href="#" onclick="filterProps('flat')">Flats</a>
+    <a href="#" onclick="filterProps('plot')">Plots</a>
+    <a href="#" onclick="filterProps('rental')">Rental</a>
+    <a href="#">Localities</a>
+    <a href="#">Contact</a>
+    <a href="#" class="nav-post-btn" onclick="openInquiryModal()">+ Post Property</a>
+  </div>
+  <div class="hamburger" onclick="toggleMobileMenu()" id="hamburger">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#" onclick="filterProps('all');toggleMobileMenu()">🏠 All Properties</a>
+  <a href="#" onclick="filterProps('flat');toggleMobileMenu()">🏢 Flats</a>
+  <a href="#" onclick="filterProps('plot');toggleMobileMenu()">🌱 Plots</a>
+  <a href="#" onclick="filterProps('rental');toggleMobileMenu()">🔑 Rental</a>
+  <a href="#" onclick="showAdmin();toggleMobileMenu()">⚙️ Admin</a>
+  <a href="#" onclick="openInquiryModal();toggleMobileMenu()">+ Post Property</a>
+</div>
+
+<!-- HERO -->
+<div class="hero">
+  <h2>Find Your Dream Property in <span>Jammu</span></h2>
+  <p>Flats • Plots • Rental — Trusted by Hundreds of Families</p>
+  <div class="search-box">
+    <select id="searchType">
+      <option value="">Property Type</option>
+      <option>Flat</option>
+      <option>Plot</option>
+      <option>Rental</option>
+    </select>
+    <select id="searchLocation">
+      <option value="">Select Location</option>
+    </select>
+    <select id="searchBudget">
+      <option value="">Budget</option>
+      <option>Under ₹20 Lakh</option>
+      <option>₹20L – ₹50L</option>
+      <option>₹50L – ₹1 Cr</option>
+      <option>Above ₹1 Cr</option>
+    </select>
+    <select id="searchStatus">
+      <option value="">Status</option>
+      <option>Ready to Move</option>
+      <option>Under Construction</option>
+      <option>New Launch</option>
+    </select>
+    <button class="search-btn" onclick="doSearch()">🔍 Search</button>
+  </div>
+</div>
+
+<!-- STATS BAR -->
+<div class="stats-bar">
+  <div class="stat-item"><strong id="totalProps">0</strong><span>Total Listings</span></div>
+  <div class="stat-item"><strong>500+</strong><span>Happy Clients</span></div>
+  <div class="stat-item"><strong>15+</strong><span>Localities</span></div>
+  <div class="stat-item"><strong>10+</strong><span>Years Experience</span></div>
+</div>
+
+<!-- FILTER TABS -->
+<div class="filter-section">
+  <div class="filter-row">
+    <span class="filter-label">Filter by:</span>
+    <button class="filter-btn active" onclick="filterProps('all',this)">All</button>
+    <button class="filter-btn" onclick="filterProps('flat',this)">🏢 Flats</button>
+    <button class="filter-btn" onclick="filterProps('plot',this)">🌱 Plots</button>
+    <button class="filter-btn" onclick="filterProps('rental',this)">🔑 Rental</button>
+    <select class="filter-select" onchange="filterByLocation(this.value)" style="margin-left:20px;" id="filterLocSelect">
+      <option value="">All Localities</option>
+    </select>
+    <span id="resultCount" style="margin-left:auto;font-size:13px;color:#888;"></span>
+  </div>
+</div>
+
+<!-- MAIN LAYOUT -->
+<div class="main-layout">
+  <aside class="sidebar">
+    <div class="sidebar-header">🔍 Refine Search</div>
+    <div class="sidebar-section">
+      <h4>Property Type</h4>
+      <label class="check-item"><input type="checkbox" checked onchange="applyFilters()"> Flats</label>
+      <label class="check-item"><input type="checkbox" checked onchange="applyFilters()"> Plots</label>
+      <label class="check-item"><input type="checkbox" checked onchange="applyFilters()"> Rental</label>
+    </div>
+    <div class="sidebar-section">
+      <h4>BHK Type</h4>
+      <label class="check-item"><input type="checkbox"> 1 BHK</label>
+      <label class="check-item"><input type="checkbox"> 2 BHK</label>
+      <label class="check-item"><input type="checkbox"> 3 BHK</label>
+      <label class="check-item"><input type="checkbox"> 4+ BHK</label>
+    </div>
+    <div class="sidebar-section">
+      <h4>Status</h4>
+      <label class="check-item"><input type="checkbox"> Ready to Move</label>
+      <label class="check-item"><input type="checkbox"> Under Construction</label>
+      <label class="check-item"><input type="checkbox"> New Launch</label>
+    </div>
+    <div class="sidebar-section">
+      <h4>Locality</h4>
+      <select class="sidebar-select" onchange="filterByLocation(this.value)" id="sidebarLocSelect">
+        <option value="">All Areas</option>
+      </select>
+    </div>
+    <div class="contact-card">
+      <h4>📞 Contact Agent</h4>
+      <p><strong>Sunny Sangral</strong><br>Property Expert, Jammu</p>
+      <div class="phone">7006628484</div>
+      <p style="font-size:12px;opacity:0.7;">Bachittar Complex, Channi Himmat</p>
+      <a href="tel:7006628484" class="call-btn">📞 Call Now</a>
+    </div>
+  </aside>
+
+  <div>
+    <div class="listings-header">
+      <h3>Properties in Jammu</h3>
+      <span id="listingCount">Showing all listings</span>
+    </div>
+    <div class="listings-grid" id="listingsGrid"></div>
+  </div>
+</div>
+
+<!-- SERVICES -->
+<div class="services-section">
+  <h2>Our Services</h2>
+  <p>Everything you need to buy, sell, or rent property in Jammu</p>
+  <div class="services-grid">
+    <div class="service-card"><div class="service-icon">🏢</div><h4>Flats & Apartments</h4><p>Premium residential flats across all localities in Jammu</p></div>
+    <div class="service-card"><div class="service-icon">🌱</div><h4>Plots & Land</h4><p>Residential & commercial plots at best prices</p></div>
+    <div class="service-card"><div class="service-icon">🔑</div><h4>Rental Properties</h4><p>Furnished & unfurnished homes for rent</p></div>
+    <div class="service-card"><div class="service-icon">🏠</div><h4>Independent Homes</h4><p>Kothi & independent houses for families</p></div>
+    <div class="service-card"><div class="service-icon">💼</div><h4>Commercial Spaces</h4><p>Shops, offices & commercial properties</p></div>
+  </div>
+</div>
+
+<!-- TRUST BADGES -->
+<div class="trust-section">
+  <div class="trust-item"><div class="icon">✅</div><h4>Trusted Service</h4><p>Verified listings only</p></div>
+  <div class="trust-item"><div class="icon">🤝</div><h4>Transparent Deals</h4><p>No hidden charges</p></div>
+  <div class="trust-item"><div class="icon">📍</div><h4>Best Locations</h4><p>Prime areas in Jammu</p></div>
+  <div class="trust-item"><div class="icon">😊</div><h4>Satisfied Clients</h4><p>500+ happy families</p></div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <h3>Property Adda</h3>
+      <p>Your trusted real estate partner in Jammu. We help you find the perfect home, plot, or rental property with transparency and trust.</p>
+      <p style="margin-top:12px;">📞 7006628484<br>📍 Bachittar Complex, Channi Himmat, Jammu 180015</p>
+    </div>
+    <div class="footer-col">
+      <h4>Properties</h4>
+      <a href="#">Flats in Jammu</a><a href="#">Plots in Jammu</a><a href="#">Rental Homes</a><a href="#">Commercial</a><a href="#">New Projects</a>
+    </div>
+    <div class="footer-col">
+      <h4>Localities</h4>
+      <a href="#">Channi Himmat</a><a href="#">Gandhi Nagar</a><a href="#">Trikuta Nagar</a><a href="#">Bakshi Nagar</a><a href="#">Roop Nagar</a><a href="#">Barnai</a>
+    </div>
+    <div class="footer-col">
+      <h4>Quick Links</h4>
+      <a href="#">About Us</a><a href="#">Contact</a><a href="#" onclick="showAdmin()">Admin Login</a><a href="#">Privacy Policy</a><a href="#">Terms of Use</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2024 Property Adda by Sunny Sangral. All rights reserved.</span>
+    <span>Jammu & Kashmir, India</span>
+  </div>
+</footer>
+
+<a href="https://wa.me/917006628484" target="_blank" class="whatsapp-btn" title="Chat on WhatsApp">💬</a>
+
+<!-- ══════════════════════════════════════════
+     PROPERTY DETAIL MODAL (new)
+══════════════════════════════════════════ -->
+<div class="detail-modal-overlay" id="detailModal">
+  <div class="detail-modal">
+    <button class="detail-modal-close" onclick="closeDetailModal()">✕</button>
+
+    <!-- GALLERY -->
+    <div class="gallery-main" id="galleryMain">
+      <!-- images injected by JS -->
+    </div>
+    <div class="gallery-thumbnails" id="galleryThumbs"></div>
+
+    <!-- BODY -->
+    <div class="detail-body">
+      <div class="detail-header">
+        <div>
+          <div class="detail-price" id="detailPrice"></div>
+          <div class="detail-title" id="detailTitle"></div>
+          <div class="detail-location" id="detailLocation"></div>
+        </div>
+        <div class="detail-badges" id="detailBadges"></div>
+      </div>
+
+      <div class="detail-specs" id="detailSpecs"></div>
+
+      <div class="detail-desc-section" id="detailDescSection">
+        <h4>About this property</h4>
+        <p id="detailDesc"></p>
+      </div>
+
+      <div class="detail-actions">
+        <button class="detail-call-btn" id="detailCallBtn">📞 Call Agent</button>
+        <a href="#" class="detail-wa-btn" id="detailWaBtn" target="_blank">💬 WhatsApp Agent</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CALL BOOKING MODAL -->
+<div class="modal-overlay" id="inquiryModal">
+  <div class="modal" style="max-width:440px;">
+    <button class="modal-close" onclick="closeModal('inquiryModal')">✕</button>
+    <div style="text-align:center;margin-bottom:18px;">
+      <div style="font-size:34px;">📞</div>
+      <h2 style="font-size:20px;margin:6px 0 4px;">Book a Call with Agent</h2>
+      <p style="font-size:12px;color:#888;">Sunny Sangral · <a href="tel:7006628484" style="color:var(--gold);font-weight:700;text-decoration:none;">7006628484</a></p>
+    </div>
+    <div id="callPropPreview" style="display:none;background:var(--light);border:1px solid var(--border);border-radius:10px;padding:12px;margin-bottom:16px;align-items:center;gap:12px;">
+      <img id="callPropImg" style="width:64px;height:64px;object-fit:cover;border-radius:8px;background:#ddd;" src="" alt="">
+      <div>
+        <div id="callPropTitle" style="font-weight:700;font-size:14px;color:var(--navy);"></div>
+        <div id="callPropLocation" style="font-size:12px;color:#888;margin-top:2px;"></div>
+        <div id="callPropPrice" style="font-size:13px;font-weight:700;color:var(--gold);margin-top:2px;"></div>
+      </div>
+    </div>
+    <div class="success-msg" id="callSuccess">✅ Request sent! Sunny will call you shortly on WhatsApp.</div>
+    <div class="form-group"><label>Your Name *</label><input type="text" id="callName" placeholder="Enter your full name"></div>
+    <div class="form-group"><label>Mobile Number *</label><input type="tel" id="callPhone" placeholder="10-digit mobile number" maxlength="10"></div>
+    <div class="form-group"><label>Preferred Date *</label><input type="date" id="callDate"></div>
+    <button class="submit-btn" onclick="submitCallBooking()">📲 Send Booking Request</button>
+    <p style="text-align:center;font-size:12px;color:#aaa;margin-top:10px;">We'll confirm via WhatsApp</p>
+  </div>
+</div>
+
+<!-- UPLOAD PASSWORD MODAL -->
+<div class="modal-overlay" id="uploadPwdModal">
+  <div class="modal" style="max-width:340px;">
+    <button class="modal-close" onclick="closeModal('uploadPwdModal')">✕</button>
+    <div style="text-align:center;margin-bottom:16px;"><div style="font-size:32px;">🔒</div><h2 style="font-size:18px;margin-top:6px;">Verify to Upload</h2><p style="font-size:12px;color:#888;margin-top:4px;">Enter password to upload property images</p></div>
+    <div class="form-group"><label>Upload Password</label><input type="password" id="uploadPwdInput" placeholder="Enter password" onkeydown="if(event.key==='Enter')checkUploadPwd()"></div>
+    <div id="uploadPwdError" style="color:#dc3545;font-size:13px;margin-bottom:10px;display:none;">❌ Incorrect password. Try again.</div>
+    <button class="submit-btn" onclick="checkUploadPwd()">Verify & Upload</button>
+  </div>
+</div>
+
+<!-- ADMIN LOGIN MODAL -->
+<div class="modal-overlay" id="adminLoginModal">
+  <div class="modal" style="max-width:360px;">
+    <button class="modal-close" onclick="closeModal('adminLoginModal')">✕</button>
+    <h2>🔐 Admin Login</h2>
+    <div class="form-group"><label>Password</label><input type="password" id="adminPwd" placeholder="Enter admin password" onkeydown="if(event.key==='Enter')checkAdmin()"></div>
+    <div id="pwdError" style="color:#dc3545;font-size:13px;margin-bottom:10px;display:none;">❌ Incorrect password</div>
+    <button class="submit-btn" onclick="checkAdmin()">Login</button>
+  </div>
+</div>
+
+<!-- ADD PROPERTY MODAL -->
+<div class="modal-overlay" id="addPropModal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('addPropModal')">✕</button>
+    <h2>➕ Add New Property</h2>
+    <div class="success-msg" id="addPropSuccess">✅ Property added successfully!</div>
+
+    <div class="form-group"><label>Property Title *</label><input type="text" id="newTitle" placeholder="e.g. 3 BHK Luxury Flat, Near Market"></div>
+
+    <div class="form-grid">
+      <div class="form-group">
+        <label>Property Type *</label>
+        <select id="newType">
+          <option value="flat">🏢 Flat / Apartment</option>
+          <option value="plot">🌱 Plot / Land</option>
+          <option value="rental">🔑 Rental</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Status Badge *</label>
+        <select id="newStatus">
+          <option value="Ready to Move">✅ Ready to Move</option>
+          <option value="Under Construction">🔨 Under Construction</option>
+          <option value="New Launch">🆕 New Launch</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="form-grid">
+      <div class="form-group"><label>Price *</label><input type="text" id="newPrice" placeholder="e.g. ₹45 Lakh or ₹8K/month"></div>
+      <div class="form-group"><label>Area (sq ft)</label><input type="text" id="newArea" placeholder="e.g. 1200"></div>
+    </div>
+
+    <div class="form-grid">
+      <div class="form-group"><label>Bedrooms</label><input type="number" id="newBeds" placeholder="e.g. 2" min="0"></div>
+      <div class="form-group"><label>Bathrooms</label><input type="number" id="newBaths" placeholder="e.g. 2" min="0"></div>
+    </div>
+
+    <div class="form-group">
+      <label>Location *</label>
+      <select id="newLocation"><option value="">-- Select Area --</option></select>
+      <input type="text" id="newLocationCustom" placeholder="Type your area / locality name" style="display:none;margin-top:8px;width:100%;padding:10px 12px;border:1.5px solid var(--gold);border-radius:8px;font-size:14px;outline:none;">
+    </div>
+
+    <div class="form-group">
+      <label>Description (optional)</label>
+      <textarea id="newDesc" rows="3" placeholder="Describe the property: floor, facing, nearby landmarks, amenities, parking, etc." style="width:100%;padding:10px 12px;border:1.5px solid #ddd;border-radius:8px;font-size:14px;outline:none;resize:vertical;"></textarea>
+    </div>
+
+    <!-- ── MULTI-IMAGE UPLOAD ── -->
+    <div class="form-group">
+      <label>Property Photos <span style="color:#aaa;font-weight:400;">(up to 10 images)</span></label>
+      <div class="multi-img-drop" id="multiImgDrop"
+           onclick="askUploadPwd()"
+           ondragover="event.preventDefault();document.getElementById('multiImgDrop').classList.add('dragover')"
+           ondragleave="document.getElementById('multiImgDrop').classList.remove('dragover')"
+           ondrop="handleMultiImgDrop(event)">
+        <div class="multi-img-drop-label">
+          <div style="font-size:28px;margin-bottom:6px;">📷</div>
+          <strong style="color:#555;font-size:13px;">Click or drag &amp; drop photos here</strong><br>
+          <span style="font-size:11px;">JPG, PNG • Max 10 photos • First photo = cover image</span>
+        </div>
+        <div class="multi-img-strip" id="multiImgStrip"></div>
+        <input type="file" id="propImgFiles" accept="image/*" multiple style="display:none" onchange="handleMultiImgSelect(this)">
+      </div>
+      <p class="img-order-hint">💡 First photo will appear as the cover on the listing card</p>
+    </div>
+
+    <button class="submit-btn" onclick="addProperty()">✅ Add Property</button>
+  </div>
+</div>
+
+<!-- ADMIN PANEL -->
+<div id="adminPanel">
+  <div class="admin-header">
+    <h2>⚙️ Property Adda — Admin Panel</h2>
+    <div style="display:flex;align-items:center;gap:15px;">
+      <span style="color:#aaa;font-size:13px;">Logged in as Admin</span>
+      <button class="logout-btn" onclick="logoutAdmin()">Logout</button>
+    </div>
+  </div>
+  <div class="admin-body">
+    <div class="admin-tabs">
+      <div class="admin-tab active" onclick="switchTab('props',this)">🏠 Properties</div>
+      <div class="admin-tab" onclick="switchTab('inquiries',this)">📬 Inquiries</div>
+      <div class="admin-tab" onclick="switchTab('locations',this)">📍 Manage Locations</div>
+    </div>
+    <div id="tab-props" class="admin-content active">
+      <button class="add-btn" onclick="openModal('addPropModal')">➕ Add New Property</button>
+      <table class="admin-table">
+        <thead><tr><th>#</th><th>Cover Photo</th><th>Title</th><th>Type</th><th>Price</th><th>Location</th><th>Status</th><th>Photos</th><th>Action</th></tr></thead>
+        <tbody id="adminTableBody"></tbody>
+      </table>
+    </div>
+    <div id="tab-inquiries" class="admin-content">
+      <p style="color:#888;font-size:14px;padding:20px 0;">No inquiries yet. They'll appear here when visitors submit the contact form.</p>
+    </div>
+    <div id="tab-locations" class="admin-content">
+      <div style="max-width:500px;">
+        <h3 style="color:var(--navy);margin-bottom:6px;">📍 Manage Location / Area Names</h3>
+        <p style="font-size:13px;color:#888;margin-bottom:20px;">Add new places here — they will automatically appear in all location dropdowns.</p>
+        <div style="display:flex;gap:10px;margin-bottom:20px;">
+          <input type="text" id="newLocInput" placeholder="e.g. New Colony, Bypass Road..." style="flex:1;padding:10px 12px;border:1.5px solid #ddd;border-radius:8px;font-size:14px;outline:none;" onkeydown="if(event.key==='Enter')addLocation()">
+          <button onclick="addLocation()" style="background:var(--gold);color:white;border:none;padding:10px 20px;border-radius:8px;font-weight:700;cursor:pointer;white-space:nowrap;">+ Add Place</button>
+        </div>
+        <div id="locSuccessMsg" style="display:none;background:#e8f5e9;border:1px solid #81c784;color:#2e7d32;padding:10px 14px;border-radius:8px;margin-bottom:14px;font-size:13px;">✅ Location added!</div>
+        <div id="locList" style="border:1px solid var(--border);border-radius:10px;overflow:hidden;"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="module">
+// ── FIREBASE SETUP ──
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import { getFirestore, collection, addDoc, getDocs, deleteDoc, doc, onSnapshot, orderBy, query } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+// No Firebase Storage needed — images go to Imgur (100% free, no account, permanent hosting)
+
+const firebaseConfig = {
+  apiKey: "AIzaSyAc_sVCh5PDb5vWWo3-54AWjf7hKCVT-kM",
+  authDomain: "property-adda-80d22.firebaseapp.com",
+  projectId: "property-adda-80d22",
+  storageBucket: "property-adda-80d22.firebasestorage.app",
+  messagingSenderId: "498898942500",
+  appId: "1:498898942500:web:9d01c54cd716eaf03f76b1",
+  measurementId: "G-85TJZSL6DB"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+// ── CLOUDINARY CONFIG (free plan — sign up at cloudinary.com) ──
+const CLOUDINARY_CLOUD = 'cnayf5pw';            // ✅ your Cloudinary cloud name
+const CLOUDINARY_PRESET = 'Property Adda';      // ✅ your Cloudinary upload preset
+
+// ── LOCATIONS ──
+let locations = [
+  'Channi Himmat','Gandhi Nagar','Trikuta Nagar','Bakshi Nagar','Patel Nagar',
+  'Roop Nagar','Nanak Nagar','Barnai','Sidhra','Talab Tillo','Rehari Colony',
+  'Shastri Nagar','Sarwal','Amphalla','Janipur','Channi Rama','Rajinder Nagar',
+  'New Plot','Sainik Colony','Karan Nagar','Shakti Nagar','Shiv Nagar',
+  'Transport Nagar','Muthi'
+];
+
+let properties = [];
+let currentFilter = 'all';
+let locationFilter = '';
+
+// ── MULTI-IMAGE STATE ──
+window._propImages = []; // Array of base64 strings
+
+// ── HELPERS ──
+function getBadgeClass(type) { return type==='flat'?'badge-flat':type==='plot'?'badge-plot':'badge-rental'; }
+function getStatusClass(s) {
+  if(s==='Ready to Move') return 'badge-ready';
+  if(s==='Under Construction') return 'badge-under';
+  return 'badge-new';
+}
+function getTypeIcon(type) { return type==='flat'?'🏢':type==='plot'?'🌱':'🔑'; }
+function getTypeLabel(type) { return type==='flat'?'Flat':type==='plot'?'Plot':'Rental'; }
+
+function renderPlaceholder(type) {
+  return `<div class="prop-img-placeholder"><div class="house-icon">${getTypeIcon(type)}</div><span style="font-size:13px;color:#999">${getTypeLabel(type)}</span></div>`;
+}
+
+function showLoading() {
+  document.getElementById('listingsGrid').innerHTML = `
+    <div style="grid-column:1/-1;text-align:center;padding:60px;color:#888;">
+      <div style="font-size:48px;margin-bottom:12px;">⏳</div>
+      <p>Loading properties...</p>
+    </div>`;
+}
+
+// ── RENDER CARDS ──
+function renderCards() {
+  const grid = document.getElementById('listingsGrid');
+  let filtered = properties.filter(p => {
+    const matchType = currentFilter==='all' || p.type===currentFilter;
+    const matchLoc = !locationFilter || p.location===locationFilter;
+    return matchType && matchLoc;
+  });
+  document.getElementById('listingCount').textContent = `Showing ${filtered.length} listing${filtered.length!==1?'s':''}`;
+  document.getElementById('totalProps').textContent = properties.length;
+  document.getElementById('resultCount').textContent = `${filtered.length} results`;
+
+  if(filtered.length===0){
+    grid.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:60px;color:#888;"><div style="font-size:48px;margin-bottom:12px;">🏚️</div><p>No properties found. Try a different filter.</p></div>`;
+    return;
+  }
+
+  grid.innerHTML = filtered.map(p => {
+    // images: support new multi-image array OR old single img string
+    const imgs = Array.isArray(p.images) && p.images.length > 0 ? p.images : (p.img ? [p.img] : []);
+    const coverImg = imgs[0] || '';
+    const imgCount = imgs.length;
+
+    const imgHtml = coverImg
+      ? `<img src="${coverImg}" alt="${p.title}" onerror="this.parentElement.innerHTML='${renderPlaceholder(p.type).replace(/'/g,"\\'")}'">`
+      : renderPlaceholder(p.type);
+
+    return `
+    <div class="prop-card" data-type="${p.type}" data-id="${p.firestoreId}">
+      <div class="prop-img" onclick="openDetailModal('${p.firestoreId}')">
+        ${imgHtml}
+        <span class="type-badge ${getBadgeClass(p.type)}">${getTypeLabel(p.type)}</span>
+        <span class="status-badge ${getStatusClass(p.status)}">${p.status}</span>
+        ${imgCount > 1 ? `<div class="img-count-badge">📷 ${imgCount}</div>` : ''}
+        <div class="prop-img-overlay"><span>View Details</span></div>
+      </div>
+      <div class="prop-body">
+        <div class="prop-price">${p.price}</div>
+        <div class="prop-title" onclick="openDetailModal('${p.firestoreId}')">${p.title}</div>
+        <div class="prop-location">${p.location}, Jammu</div>
+        <div class="prop-specs">
+          ${p.beds>0?`<div class="spec-item">🛏️ ${p.beds} Bed${p.beds>1?'s':''}</div>`:''}
+          ${p.baths>0?`<div class="spec-item">🚿 ${p.baths} Bath${p.baths>1?'s':''}</div>`:''}
+          ${p.area&&p.area!=='N/A'?`<div class="spec-item">📐 ${p.area} sq ft</div>`:''}
+        </div>
+        <div class="prop-actions">
+          <button class="btn-call" onclick="openCallModal('${p.firestoreId}')">📞 Call Agent</button>
+          <button class="btn-details" onclick="openDetailModal('${p.firestoreId}')">View Details</button>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+// ── DETAIL MODAL ──
+let galleryIndex = 0;
+let galleryImages = [];
+
+function openDetailModal(propId) {
+  const p = properties.find(x => x.firestoreId === propId);
+  if(!p) return;
+
+  // Build images array (backwards-compatible)
+  galleryImages = Array.isArray(p.images) && p.images.length > 0 ? p.images : (p.img ? [p.img] : []);
+  galleryIndex = 0;
+
+  // Gallery main
+  const galleryMain = document.getElementById('galleryMain');
+  if(galleryImages.length === 0) {
+    galleryMain.innerHTML = `<div class="placeholder-big">${getTypeIcon(p.type)}<span style="font-size:18px;margin-top:12px;opacity:0.5">${getTypeLabel(p.type)}</span></div>`;
+  } else {
+    const navHtml = galleryImages.length > 1
+      ? `<div class="gallery-nav">
+           <button class="gallery-nav-btn" onclick="changeGallery(-1)">&#8249;</button>
+           <button class="gallery-nav-btn" onclick="changeGallery(1)">&#8250;</button>
+         </div>
+         <div class="gallery-counter" id="galleryCounter">1 / ${galleryImages.length}</div>`
+      : '';
+    galleryMain.innerHTML = galleryImages.map((src, i) =>
+      `<img src="${src}" class="${i===0?'active':''}" alt="Photo ${i+1}">`
+    ).join('') + navHtml;
+  }
+
+  // Thumbnails
+  const thumbsEl = document.getElementById('galleryThumbs');
+  if(galleryImages.length > 1) {
+    thumbsEl.style.display = 'flex';
+    thumbsEl.innerHTML = galleryImages.map((src, i) =>
+      `<img src="${src}" class="gallery-thumb ${i===0?'active':''}" onclick="jumpGallery(${i})" alt="Thumb ${i+1}">`
+    ).join('');
+  } else {
+    thumbsEl.style.display = 'none';
+    thumbsEl.innerHTML = '';
+  }
+
+  // Info
+  document.getElementById('detailPrice').textContent = p.price;
+  document.getElementById('detailTitle').textContent = p.title;
+  document.getElementById('detailLocation').textContent = p.location + ', Jammu';
+  document.getElementById('detailBadges').innerHTML = `
+    <span class="type-badge ${getBadgeClass(p.type)}" style="position:static;margin-right:4px;">${getTypeLabel(p.type)}</span>
+    <span class="status-badge ${getStatusClass(p.status)}" style="position:static;">${p.status}</span>`;
+
+  // Specs
+  let specsHtml = '';
+  if(p.beds > 0) specsHtml += `<div class="detail-spec"><div class="spec-icon">🛏️</div><div class="spec-val">${p.beds}</div><div class="spec-label">Bedroom${p.beds>1?'s':''}</div></div>`;
+  if(p.baths > 0) specsHtml += `<div class="detail-spec"><div class="spec-icon">🚿</div><div class="spec-val">${p.baths}</div><div class="spec-label">Bathroom${p.baths>1?'s':''}</div></div>`;
+  if(p.area && p.area !== 'N/A') specsHtml += `<div class="detail-spec"><div class="spec-icon">📐</div><div class="spec-val">${p.area}</div><div class="spec-label">Sq Ft</div></div>`;
+  if(galleryImages.length > 0) specsHtml += `<div class="detail-spec"><div class="spec-icon">📷</div><div class="spec-val">${galleryImages.length}</div><div class="spec-label">Photo${galleryImages.length>1?'s':''}</div></div>`;
+  document.getElementById('detailSpecs').innerHTML = specsHtml;
+
+  // Description
+  const descSection = document.getElementById('detailDescSection');
+  const descEl = document.getElementById('detailDesc');
+  if(p.desc && p.desc.trim()) {
+    descEl.textContent = p.desc;
+    descSection.style.display = 'block';
+  } else {
+    descSection.style.display = 'none';
+  }
+
+  // Actions
+  window._detailPropId = propId;
+  document.getElementById('detailCallBtn').onclick = () => {
+    closeDetailModal();
+    openCallModal(propId);
+  };
+  const waMsg = encodeURIComponent(`Hello Sunny,\n\nI'm interested in this property:\n🏠 ${p.title}\n📍 ${p.location}, Jammu\n💰 ${p.price}\n\nPlease share more details.`);
+  document.getElementById('detailWaBtn').href = `https://wa.me/917006628484?text=${waMsg}`;
+
+  document.getElementById('detailModal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeDetailModal() {
+  document.getElementById('detailModal').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function changeGallery(dir) {
+  galleryIndex = (galleryIndex + dir + galleryImages.length) % galleryImages.length;
+  updateGalleryDisplay();
+}
+function jumpGallery(idx) {
+  galleryIndex = idx;
+  updateGalleryDisplay();
+}
+function updateGalleryDisplay() {
+  const imgs = document.querySelectorAll('#galleryMain img');
+  const thumbs = document.querySelectorAll('#galleryThumbs .gallery-thumb');
+  imgs.forEach((img, i) => img.classList.toggle('active', i === galleryIndex));
+  thumbs.forEach((t, i) => t.classList.toggle('active', i === galleryIndex));
+  const counter = document.getElementById('galleryCounter');
+  if(counter) counter.textContent = `${galleryIndex+1} / ${galleryImages.length}`;
+  // scroll thumb into view
+  if(thumbs[galleryIndex]) thumbs[galleryIndex].scrollIntoView({behavior:'smooth',block:'nearest',inline:'center'});
+}
+
+// Close detail on overlay click
+document.getElementById('detailModal').addEventListener('click', function(e) {
+  if(e.target === this) closeDetailModal();
+});
+
+// Keyboard navigation for gallery
+document.addEventListener('keydown', function(e) {
+  if(!document.getElementById('detailModal').classList.contains('open')) return;
+  if(e.key === 'ArrowLeft') changeGallery(-1);
+  if(e.key === 'ArrowRight') changeGallery(1);
+  if(e.key === 'Escape') closeDetailModal();
+});
+
+// ── FILTERS ──
+function filterProps(type, btn) {
+  currentFilter = type;
+  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+  if(btn) btn.classList.add('active');
+  renderCards();
+}
+function filterByLocation(loc) { locationFilter=loc; renderCards(); }
+function applyFilters() { renderCards(); }
+function doSearch() {
+  const type = document.getElementById('searchType').value.toLowerCase();
+  const loc = document.getElementById('searchLocation').value;
+  if(type) currentFilter = type;
+  if(loc) locationFilter = loc;
+  renderCards();
+  document.querySelector('.main-layout').scrollIntoView({behavior:'smooth'});
+}
+
+// ── MODALS ──
+function openModal(id) { document.getElementById(id).classList.add('open'); }
+function closeModal(id) { document.getElementById(id).classList.remove('open'); }
+function openInquiryModal() { openModal('inquiryModal'); }
+window.addEventListener('click', e => {
+  if(e.target.classList.contains('modal-overlay') && e.target.id !== 'detailModal') {
+    if(e.target.id === 'uploadPwdModal') {
+      e.target.classList.remove('open');
+    } else if(!document.getElementById('uploadPwdModal').classList.contains('open')) {
+      e.target.classList.remove('open');
+    }
+  }
+});
+
+function openCallModal(propId) {
+  document.getElementById('callName').value = '';
+  document.getElementById('callPhone').value = '';
+  document.getElementById('callDate').value = '';
+  document.getElementById('callSuccess').style.display = 'none';
+  const today = new Date().toISOString().split('T')[0];
+  document.getElementById('callDate').min = today;
+  const prop = properties.find(p => p.firestoreId === propId);
+  if(prop) {
+    document.getElementById('callPropTitle').textContent = prop.title;
+    document.getElementById('callPropLocation').textContent = '📍 ' + prop.location + ', Jammu';
+    document.getElementById('callPropPrice').textContent = prop.price;
+    const imgs = Array.isArray(prop.images) && prop.images.length > 0 ? prop.images : (prop.img ? [prop.img] : []);
+    const imgEl = document.getElementById('callPropImg');
+    if(imgs[0]) { imgEl.src = imgs[0]; imgEl.style.display = 'block'; }
+    else { imgEl.style.display = 'none'; }
+    document.getElementById('callPropPreview').style.display = 'flex';
+  } else {
+    document.getElementById('callPropPreview').style.display = 'none';
+  }
+  window._callPropId = propId;
+  openModal('inquiryModal');
+}
+
+function submitCallBooking() {
+  const name = document.getElementById('callName').value.trim();
+  const phone = document.getElementById('callPhone').value.trim();
+  const date = document.getElementById('callDate').value;
+  if(!name) { alert('Please enter your name'); return; }
+  if(!phone || phone.length < 10) { alert('Please enter a valid 10-digit mobile number'); return; }
+  if(!date) { alert('Please select a preferred date'); return; }
+  const prop = properties.find(p => p.firestoreId === window._callPropId);
+  const propInfo = prop ? `🏠 Property: ${prop.title} (${prop.location})\n💰 Price: ${prop.price}` : '';
+  const msg = encodeURIComponent(`Hello Sunny,\n\nNew Call Booking Request:\n👤 Name: ${name}\n📞 Mobile: ${phone}\n📅 Date: ${date}\n${propInfo}\n\nPlease call to confirm.`);
+  document.getElementById('callSuccess').style.display = 'block';
+  setTimeout(() => {
+    closeModal('inquiryModal');
+    document.getElementById('callSuccess').style.display = 'none';
+    window.open(`https://wa.me/917006628484?text=${msg}`, '_blank');
+  }, 1200);
+}
+
+// ── ADMIN ──
+function showAdmin() { openModal('adminLoginModal'); document.getElementById('adminPwd').value=''; document.getElementById('pwdError').style.display='none'; }
+function checkAdmin() {
+  const pwd = document.getElementById('adminPwd').value;
+  if(pwd==='thirdeyetechnologies'){
+    closeModal('adminLoginModal');
+    document.getElementById('adminPanel').classList.add('show');
+    document.querySelector('nav').style.display='none';
+    document.querySelector('.topbar').style.display='none';
+    renderAdminTable();
+    renderLocList();
+    window.scrollTo(0,0);
+  } else {
+    document.getElementById('pwdError').style.display='block';
+  }
+}
+function logoutAdmin() {
+  document.getElementById('adminPanel').classList.remove('show');
+  document.querySelector('nav').style.display='flex';
+  document.querySelector('.topbar').style.display='flex';
+}
+function switchTab(tab, el) {
+  document.querySelectorAll('.admin-tab').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.admin-content').forEach(c=>c.classList.remove('active'));
+  el.classList.add('active');
+  document.getElementById('tab-'+tab).classList.add('active');
+}
+function renderAdminTable() {
+  const tbody = document.getElementById('adminTableBody');
+  tbody.innerHTML = properties.map((p,i) => {
+    const imgs = Array.isArray(p.images) && p.images.length > 0 ? p.images : (p.img ? [p.img] : []);
+    const coverImg = imgs[0] || '';
+    return `
+    <tr>
+      <td>${i+1}</td>
+      <td>${coverImg ? `<img src="${coverImg}" style="width:50px;height:40px;object-fit:cover;border-radius:5px;">` : '—'}</td>
+      <td>${p.title}</td>
+      <td><span class="type-badge ${getBadgeClass(p.type)}" style="position:static;font-size:11px;">${p.type}</span></td>
+      <td>${p.price}</td>
+      <td>${p.location}</td>
+      <td>${p.status}</td>
+      <td><span style="background:#e8f5e9;color:#2e7d32;padding:3px 8px;border-radius:10px;font-size:11px;font-weight:700;">${imgs.length} 📷</span></td>
+      <td><button class="del-btn" onclick="deleteProp('${p.firestoreId}')">Delete</button></td>
+    </tr>`;
+  }).join('');
+}
+
+async function deleteProp(firestoreId) {
+  if(!confirm('Delete this property?')) return;
+  try {
+    await deleteDoc(doc(db, 'properties', firestoreId));
+  } catch(e) {
+    alert('Error deleting: ' + e.message);
+  }
+}
+
+async function addProperty() {
+  const title = document.getElementById('newTitle').value.trim();
+  const price = document.getElementById('newPrice').value.trim();
+  const locSelect = document.getElementById('newLocation').value;
+  const locCustom = document.getElementById('newLocationCustom').value.trim();
+  const location = locSelect === '__custom__' ? locCustom : locSelect;
+
+  if(!title) { alert('Please enter a property title'); return; }
+  if(!price) { alert('Please enter a price'); return; }
+  if(!location) { alert('Please select or type a location'); return; }
+
+  if(CLOUDINARY_CLOUD === 'YOUR_CLOUD_NAME') {
+    alert('⚠️ Please set your Cloudinary Cloud Name and Upload Preset in the code first.\n\nSign up free at cloudinary.com — no credit card needed.');
+    return;
+  }
+
+  const submitBtn = document.querySelector('#addPropModal .submit-btn');
+  submitBtn.disabled = true;
+
+  try {
+    // ── Upload each image to Cloudinary (free hosting) ──
+    let imageUrls = [];
+    const files = window._propImageFiles || [];
+    if(files.length > 0) {
+      for(let i = 0; i < files.length; i++) {
+        submitBtn.textContent = `⏳ Uploading photo ${i+1} of ${files.length}...`;
+        const url = await uploadToCloudinary(files[i]);
+        imageUrls.push(url);
+      }
+    }
+
+    submitBtn.textContent = '⏳ Saving property...';
+
+    const p = {
+      title, price, location,
+      type: document.getElementById('newType').value,
+      beds: parseInt(document.getElementById('newBeds').value) || 0,
+      baths: parseInt(document.getElementById('newBaths').value) || 1,
+      area: document.getElementById('newArea').value || 'N/A',
+      status: document.getElementById('newStatus').value,
+      desc: document.getElementById('newDesc').value.trim(),
+      images: imageUrls,
+      img: imageUrls[0] || '',
+      createdAt: Date.now()
+    };
+
+    await addDoc(collection(db, 'properties'), p);
+    document.getElementById('addPropSuccess').style.display = 'block';
+    setTimeout(() => {
+      document.getElementById('addPropSuccess').style.display = 'none';
+      closeModal('addPropModal');
+    }, 1500);
+    resetAddPropForm();
+  } catch(e) {
+    console.error(e);
+    alert('Error saving property: ' + e.message);
+  } finally {
+    submitBtn.textContent = '✅ Add Property';
+    submitBtn.disabled = false;
+  }
+}
+
+// Upload one image file to Cloudinary and return the public URL
+async function uploadToCloudinary(file) {
+  // Compress to max 1200px before uploading
+  const blob = await compressToBlob(file, 1200, 0.82);
+  const formData = new FormData();
+  formData.append('file', blob, file.name);
+  formData.append('upload_preset', CLOUDINARY_PRESET);
+  formData.append('folder', 'property-adda');
+
+  const res = await fetch(`https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD}/image/upload`, {
+    method: 'POST',
+    body: formData
+  });
+  if(!res.ok) {
+    const err = await res.json();
+    throw new Error(err.error?.message || 'Cloudinary upload failed');
+  }
+  const data = await res.json();
+  return data.secure_url; // permanent HTTPS image URL
+}
+
+// Compress a File to a Blob at given max dimension and quality
+function compressToBlob(file, maxPx, quality) {
+  return new Promise((resolve) => {
+    const reader = new FileReader();
+    reader.onload = e => {
+      const img = new Image();
+      img.onload = () => {
+        const canvas = document.createElement('canvas');
+        let w = img.width, h = img.height;
+        if(w > maxPx) { h = Math.round(h * maxPx / w); w = maxPx; }
+        if(h > maxPx) { w = Math.round(w * maxPx / h); h = maxPx; }
+        canvas.width = w; canvas.height = h;
+        canvas.getContext('2d').drawImage(img, 0, 0, w, h);
+        canvas.toBlob(blob => resolve(blob), 'image/jpeg', quality);
+      };
+      img.src = e.target.result;
+    };
+    reader.readAsDataURL(file);
+  });
+}
+
+function resetAddPropForm() {
+  ['newTitle','newPrice','newBeds','newBaths','newArea','newDesc'].forEach(id => document.getElementById(id).value = '');
+  document.getElementById('newLocation').value = '';
+  document.getElementById('newLocationCustom').style.display = 'none';
+  document.getElementById('newLocationCustom').value = '';
+  window._propImages = [];      // preview base64 thumbnails
+  window._propImageFiles = [];  // actual File objects for upload
+  document.getElementById('multiImgStrip').innerHTML = '';
+  document.getElementById('propImgFiles').value = '';
+  renderMultiImgStrip();
+}
+
+// ── MULTI IMAGE UPLOAD ──
+function askUploadPwd() {
+  if(window._uploadVerified) {
+    document.getElementById('propImgFiles').click();
+    return;
+  }
+  document.getElementById('uploadPwdInput').value = '';
+  document.getElementById('uploadPwdError').style.display = 'none';
+  document.getElementById('uploadPwdModal').classList.add('open');
+}
+
+function checkUploadPwd() {
+  const pwd = document.getElementById('uploadPwdInput').value;
+  if(pwd === 'thirdeyetechnologies') {
+    window._uploadVerified = true;
+    document.getElementById('uploadPwdModal').classList.remove('open');
+    document.getElementById('propImgFiles').click();
+  } else {
+    document.getElementById('uploadPwdError').style.display = 'block';
+    document.getElementById('uploadPwdInput').value = '';
+  }
+}
+
+function handleMultiImgSelect(input) {
+  if(!input.files || input.files.length === 0) return;
+  const files = Array.from(input.files).slice(0, 10 - window._propImages.length);
+  processImageFiles(files);
+}
+
+function handleMultiImgDrop(e) {
+  e.preventDefault();
+  document.getElementById('multiImgDrop').classList.remove('dragover');
+
+  if(!window._uploadVerified) {
+    // need to verify first
+    document.getElementById('uploadPwdInput').value = '';
+    document.getElementById('uploadPwdError').style.display = 'none';
+    document.getElementById('uploadPwdModal').classList.add('open');
+    // store pending files
+    window._pendingDropFiles = Array.from(e.dataTransfer.files).filter(f => f.type.startsWith('image/'));
+    return;
+  }
+
+  const files = Array.from(e.dataTransfer.files)
+    .filter(f => f.type.startsWith('image/'))
+    .slice(0, 10 - window._propImages.length);
+  processImageFiles(files);
+}
+
+function processImageFiles(files) {
+  files.forEach(file => {
+    if(window._propImages.length >= 10) return;
+    // Store the actual File for upload
+    window._propImageFiles.push(file);
+    // Generate a preview thumbnail (base64 just for display)
+    const reader = new FileReader();
+    reader.onload = e => {
+      const img = new Image();
+      img.onload = () => {
+        const canvas = document.createElement('canvas');
+        const MAX = 300; // small preview only
+        let w = img.width, h = img.height;
+        if(w > MAX) { h = Math.round(h * MAX / w); w = MAX; }
+        if(h > MAX) { w = Math.round(w * MAX / h); h = MAX; }
+        canvas.width = w; canvas.height = h;
+        canvas.getContext('2d').drawImage(img, 0, 0, w, h);
+        const preview = canvas.toDataURL('image/jpeg', 0.60);
+        window._propImages.push(preview);
+        renderMultiImgStrip();
+      };
+      img.src = e.target.result;
+    };
+    reader.readAsDataURL(file);
+  });
+}
+
+function renderMultiImgStrip() {
+  const strip = document.getElementById('multiImgStrip');
+  strip.innerHTML = window._propImages.map((src, i) => `
+    <div class="multi-img-thumb-wrap">
+      <img src="${src}" alt="Photo ${i+1}">
+      ${i===0 ? '<span style="position:absolute;bottom:0;left:0;right:0;background:var(--gold);color:white;font-size:9px;font-weight:700;text-align:center;border-radius:0 0 5px 5px;padding:1px;">COVER</span>' : ''}
+      <button class="remove-thumb" onclick="removeThumb(${i})">✕</button>
+    </div>
+  `).join('');
+
+  // Update drop area label
+  const label = document.querySelector('.multi-img-drop-label');
+  if(window._propImages.length >= 10) {
+    label.innerHTML = `<span style="color:var(--gold);font-size:13px;">✅ Maximum 10 photos added</span>`;
+  } else if(window._propImages.length > 0) {
+    label.innerHTML = `<span style="color:#555;font-size:13px;">📷 ${window._propImages.length}/10 photos • Click to add more</span>`;
+  } else {
+    label.innerHTML = `<div style="font-size:28px;margin-bottom:6px;">📷</div><strong style="color:#555;font-size:13px;">Click or drag & drop photos here</strong><br><span style="font-size:11px;">JPG, PNG • Max 10 photos • First photo = cover image</span>`;
+  }
+}
+
+function removeThumb(idx) {
+  window._propImages.splice(idx, 1);
+  window._propImageFiles.splice(idx, 1);
+  renderMultiImgStrip();
+}
+
+// ── LOCATION MANAGEMENT ──
+function populateLocationDropdowns() {
+  const sorted = [...locations].sort();
+  const opts = sorted.map(l => `<option value="${l}">${l}</option>`).join('');
+  document.getElementById('searchLocation').innerHTML = '<option value="">Select Location</option>' + opts;
+  document.getElementById('filterLocSelect').innerHTML = '<option value="">All Localities</option>' + opts;
+  document.getElementById('sidebarLocSelect').innerHTML = '<option value="">All Areas</option>' + opts;
+  document.getElementById('newLocation').innerHTML =
+    '<option value="">-- Select Area --</option>' + opts +
+    '<option value="__custom__">✏️ Type custom location...</option>';
+}
+
+function addLocation() {
+  const input = document.getElementById('newLocInput');
+  const name = input.value.trim();
+  if(!name) { alert('Please enter a location name'); return; }
+  if(locations.some(l => l.toLowerCase() === name.toLowerCase())) { alert('This location already exists!'); return; }
+  locations.push(name);
+  populateLocationDropdowns();
+  renderLocList();
+  input.value = '';
+  const msg = document.getElementById('locSuccessMsg');
+  msg.style.display = 'block';
+  setTimeout(() => msg.style.display = 'none', 2000);
+}
+
+function deleteLocation(idx) {
+  const loc = locations[idx];
+  if(!confirm(`Delete "${loc}"?`)) return;
+  locations.splice(idx, 1);
+  populateLocationDropdowns();
+  renderLocList();
+}
+
+function renderLocList() {
+  const el = document.getElementById('locList');
+  if(!el) return;
+  const sorted = [...locations].sort();
+  el.innerHTML = sorted.map((l, i) => `
+    <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 16px;border-bottom:1px solid var(--border);font-size:14px;background:${i%2===0?'#fff':'#fafaf5'};">
+      <span>📍 ${l}</span>
+      <button onclick="deleteLocation(${locations.indexOf(l)})" style="background:#dc3545;color:white;border:none;padding:3px 10px;border-radius:5px;cursor:pointer;font-size:12px;">Remove</button>
+    </div>
+  `).join('');
+}
+
+document.getElementById('newLocation').addEventListener('change', function() {
+  const custom = document.getElementById('newLocationCustom');
+  if(this.value === '__custom__') { custom.style.display = 'block'; custom.focus(); }
+  else { custom.style.display = 'none'; }
+});
+
+// ── EXPOSE TO GLOBAL ──
+window.toggleMobileMenu = () => document.getElementById('mobileMenu').classList.toggle('open');
+window.filterProps = filterProps;
+window.filterByLocation = filterByLocation;
+window.applyFilters = applyFilters;
+window.doSearch = doSearch;
+window.openModal = openModal;
+window.closeModal = closeModal;
+window.openInquiryModal = openInquiryModal;
+window.openCallModal = openCallModal;
+window.submitCallBooking = submitCallBooking;
+window.showAdmin = showAdmin;
+window.checkAdmin = checkAdmin;
+window.logoutAdmin = logoutAdmin;
+window.switchTab = switchTab;
+window.deleteProp = deleteProp;
+window.addProperty = addProperty;
+window.askUploadPwd = askUploadPwd;
+window.checkUploadPwd = checkUploadPwd;
+window.handleMultiImgSelect = handleMultiImgSelect;
+window.handleMultiImgDrop = handleMultiImgDrop;
+window.removeThumb = removeThumb;
+window.addLocation = addLocation;
+window.deleteLocation = deleteLocation;
+window.openDetailModal = openDetailModal;
+window.closeDetailModal = closeDetailModal;
+window.changeGallery = changeGallery;
+window.jumpGallery = jumpGallery;
+
+// ── INIT ──
+showLoading();
+populateLocationDropdowns();
+window._propImages = [];
+window._propImageFiles = [];
+
+const q = query(collection(db, 'properties'), orderBy('createdAt', 'desc'));
+onSnapshot(q, (snapshot) => {
+  properties = snapshot.docs.map(d => ({ firestoreId: d.id, ...d.data() }));
+  renderCards();
+  renderAdminTable();
+  document.getElementById('totalProps').textContent = properties.length;
+});
+</script>
+</body>
+</html>
